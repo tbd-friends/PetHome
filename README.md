@@ -2,10 +2,10 @@
 
 Navigate to src/app folder. 
 
-You can;
+From a command line;
 
   dotnet run
   
-In VS Code 
+In Visual Studio Code 
 
   Start Debugging
