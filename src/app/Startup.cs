@@ -33,6 +33,26 @@ namespace app
                 .AddEntityFrameworkStores<PetHomeContext>()
                 .AddDefaultTokenProviders();
 
+            var signingKey = Configuration["TokenSecret"];
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(config =>
+            {
+                config.RequireHttpsMetadata = false;
+                config.SaveToken = true;
+                config.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true
+                };
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the React files will be served from this directory
