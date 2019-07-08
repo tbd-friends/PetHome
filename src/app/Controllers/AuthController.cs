@@ -56,6 +56,27 @@ namespace app.Controllers
 
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] LoginData register)
+        {
+            if (ModelState.IsValid)
+            {
+                var newUser = new AppUser
+                {
+                    UserName = register.Email,
+                    Email = register.Email
+                };
+
+                var result = await _userManager.CreateAsync(newUser, register.Password);
+
+                if (result.Succeeded)
+                {
+                    return Ok(newUser.Id);
+                }
+            }
+            return BadRequest();
+        }
+
         private string CreateJwtToken(string userId)
         {
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenSecret"]));
