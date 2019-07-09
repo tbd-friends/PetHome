@@ -1,0 +1,11 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\<server name>;Database=<Database Name>;Trusted_Connection=True;"
+  },
+  "AllowedHosts": "*"
+}
