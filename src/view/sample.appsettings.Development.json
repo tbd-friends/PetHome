@@ -7,5 +7,6 @@
   "ConnectionStrings": {
     "DefaultConnection": "Server=(localdb)\\<server name>;Database=<Database Name>;Trusted_Connection=True;"
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "TokenSecret": "Super_secret_token"
 }
