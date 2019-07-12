@@ -233,3 +233,5 @@ _Pvt_Extensions
 .fake/
 
 appsettings.*.json
+
+.ionide/symbolCache.db

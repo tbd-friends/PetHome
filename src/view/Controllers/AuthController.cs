@@ -75,6 +75,12 @@ namespace PetHome.View.Controllers
                 {
                     return Ok(newUser.Id);
                 }
+                // We want the error, to help the user say create a password.
+                // So we attach them to the ModelState and the BadRequest will contains the errors in the response.
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("Errors", error.Description);
+                }
             }
 
             return BadRequest(ModelState);

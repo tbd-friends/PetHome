@@ -1,18 +1,16 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from 'react';
+import './App.css';
+import Login from './Login/Login';
+import Register from './Register/Register';
 
 function App() {
-  return (
-    <div>
-      <form>
-        <label>Username</label>
-        <input type="text" name="username" />
-        <label>Password</label>
-        <input type="password" name="password" />
-      </form>
-    </div>
-  );
+    return (
+        <div>
+            <h1 id="home-page-title">Welcome to Pet Home</h1>
+            <Login />
+            <Register />
+        </div>
+    );
 }
 
 export default App;
