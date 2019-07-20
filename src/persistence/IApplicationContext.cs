@@ -1,4 +1,4 @@
-namespace tests
+namespace PetHome.Persistence
 {
     public interface IApplicationContext
     {

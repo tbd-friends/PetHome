@@ -1,11 +1,8 @@
-using System;
-
-namespace tests
+namespace handlers.Commands
 {
-    public class Animal
+    public class RegisterNewAnimal
     {
         public string Species { get; set; }
-        public DateTime Entered { get; set; }
         public string Color { get; set; }
         public string Breed { get; set; }
         public string Gender { get; set; }

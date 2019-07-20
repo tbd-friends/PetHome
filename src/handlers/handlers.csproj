@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>PetHome.Handlers</AssemblyName>
+    <RootNamespace>PetHome.Handlers</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\persistence\persistence.csproj" />
+  </ItemGroup>
+
+</Project>

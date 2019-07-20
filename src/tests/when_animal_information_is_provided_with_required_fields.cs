@@ -1,6 +1,10 @@
 using System;
 using FluentAssertions;
+using handlers;
+using handlers.Commands;
 using Moq;
+using PetHome.Persistence;
+using PetHome.Persistence.Models;
 using Xunit;
 
 namespace tests
@@ -23,7 +27,6 @@ namespace tests
             Context.Setup(ctx => ctx.Add(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
 
             Subject = new RegisterNewAnimalHandler(Context.Object);
-
 
             Subject.Handle(new RegisterNewAnimal()
                 { Species = Species, Color = Color, Breed = Breed, Gender = Gender, Weight = Weight });

@@ -1,6 +1,9 @@
 using System;
+using handlers.Commands;
+using PetHome.Persistence;
+using PetHome.Persistence.Models;
 
-namespace tests
+namespace handlers
 {
     public class RegisterNewAnimalHandler
     {
