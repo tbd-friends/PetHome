@@ -1,6 +1,6 @@
-﻿using handlers;
-using handlers.Commands;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using PetHome.View.InputModels;
 
@@ -10,17 +10,17 @@ namespace PetHome.View.Controllers
     [ApiController]
     public class AnimalCommandsController : ControllerBase
     {
-        private readonly RegisterNewAnimalHandler _handler;
+        private readonly IMediator _mediator;
 
-        public AnimalCommandsController(IApplicationContext context)
+        public AnimalCommandsController(IMediator mediator)
         {
-            _handler = new RegisterNewAnimalHandler(context);
+            _mediator = mediator;
         }
 
         [HttpPost("register")]
         public void Register([FromBody] RegisterAnimalInputModel model)
         {
-            _handler.Handle(new RegisterNewAnimal
+            _mediator.Send(new RegisterNewAnimal
             {
                 Species = model.Species,
                 Gender = model.Gender,

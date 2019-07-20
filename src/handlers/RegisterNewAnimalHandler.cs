@@ -1,11 +1,14 @@
 using System;
-using handlers.Commands;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using PetHome.Persistence.Models;
 
-namespace handlers
+namespace PetHome.Handlers
 {
-    public class RegisterNewAnimalHandler
+    public class RegisterNewAnimalHandler : IRequestHandler<RegisterNewAnimal>
     {
         private readonly IApplicationContext _context;
 
@@ -14,22 +17,24 @@ namespace handlers
             _context = context;
         }
 
-        public void Handle(RegisterNewAnimal command)
+        public Task<Unit> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
         {
-            if (command == null || string.IsNullOrEmpty(command.Species))
+            if (request == null || string.IsNullOrEmpty(request.Species))
             {
                 throw new ArgumentException();
             }
 
             _context.Add(new Animal
             {
-                Species = command.Species,
-                Color = command.Color,
-                Breed = command.Breed,
-                Gender = command.Gender,
-                Weight = command.Weight,
+                Species = request.Species,
+                Color = request.Color,
+                Breed = request.Breed,
+                Gender = request.Gender,
+                Weight = request.Weight,
                 Entered = DateTime.UtcNow
             });
+
+            return Unit.Task;
         }
     }
 }

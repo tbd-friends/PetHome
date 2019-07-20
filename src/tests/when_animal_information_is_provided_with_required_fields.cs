@@ -1,8 +1,9 @@
 using System;
+using System.Threading;
 using FluentAssertions;
-using handlers;
-using handlers.Commands;
 using Moq;
+using PetHome.Handlers;
+using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using PetHome.Persistence.Models;
 using Xunit;
@@ -29,7 +30,7 @@ namespace tests
             Subject = new RegisterNewAnimalHandler(Context.Object);
 
             Subject.Handle(new RegisterNewAnimal()
-                { Species = Species, Color = Color, Breed = Breed, Gender = Gender, Weight = Weight });
+            { Species = Species, Color = Color, Breed = Breed, Gender = Gender, Weight = Weight }, CancellationToken.None);
         }
 
         [Fact]

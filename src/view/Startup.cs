@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using PetHome.View.Data;
 using PetHome.View.Data.Models;
 using System.Text;
+using MediatR;
 using PetHome.Persistence;
 using PetHome.View.Infrastructure;
 
@@ -55,6 +57,8 @@ namespace PetHome.View
             });
 
             services.AddSingleton<IApplicationContext, FakeApplicationContext>();
+
+            services.AddMediatR(Assembly.Load("PetHome.Handlers"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

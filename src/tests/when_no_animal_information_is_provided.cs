@@ -1,7 +1,8 @@
 using System;
-using handlers;
-using handlers.Commands;
+using System.Threading;
 using Moq;
+using PetHome.Handlers;
+using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using Xunit;
 
@@ -22,7 +23,7 @@ namespace tests
         [Fact]
         public void argument_exception_is_thrown()
         {
-            Action action = () => { Subject.Handle(new RegisterNewAnimal() { }); };
+            Action action = () => { Subject.Handle(new RegisterNewAnimal() { }, CancellationToken.None); };
 
             Assert.Throws<ArgumentException>(action);
         }
