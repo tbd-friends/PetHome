@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using PetHome.View.Data;
 using PetHome.View.Data.Models;
 using System.Text;
+using PetHome.Persistence;
+using PetHome.View.Infrastructure;
 
 namespace PetHome.View
 {
@@ -50,8 +52,9 @@ namespace PetHome.View
                     ValidateLifetime = false,
                     ValidateIssuerSigningKey = true
                 };
-
             });
+
+            services.AddSingleton<IApplicationContext, FakeApplicationContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
