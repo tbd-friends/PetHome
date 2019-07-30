@@ -19,7 +19,11 @@ namespace PetHome.Handlers
 
         public Task<Unit> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
         {
-            if (request == null || string.IsNullOrEmpty(request.Species))
+            if (request == null || string.IsNullOrEmpty(request.Species) ||
+                string.IsNullOrEmpty(request.Breed) ||
+                string.IsNullOrEmpty(request.Color) ||
+                string.IsNullOrEmpty(request.Gender) ||
+                request.Weight == 0)
             {
                 throw new ArgumentException();
             }
