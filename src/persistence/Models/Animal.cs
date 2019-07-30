@@ -10,5 +10,9 @@ namespace PetHome.Persistence.Models
         public string Breed { get; set; }
         public string Gender { get; set; }
         public int Weight { get; set; }
+        public string Tag { get; set; }
+        public string Circumstances { get; set; }
+        public bool VetRequired { get; set; }
+        public string Notes { get; set; }
     }
 }

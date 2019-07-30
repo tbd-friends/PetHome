@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PetHome.Handlers.Commands;
-using PetHome.Persistence;
 using PetHome.View.InputModels;
 
 namespace PetHome.View.Controllers
@@ -26,7 +25,11 @@ namespace PetHome.View.Controllers
                 Gender = model.Gender,
                 Breed = model.Breed,
                 Weight = model.Weight,
-                Color = model.Color
+                Color = model.Color,
+                TagNumber = model.TagNumber,
+                Circumstances = model.Circumstances, 
+                VetRequired = model.VetRequired,
+                Notes = model.Notes,
             });
         }
     }

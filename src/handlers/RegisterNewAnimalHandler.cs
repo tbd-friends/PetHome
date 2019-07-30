@@ -35,7 +35,11 @@ namespace PetHome.Handlers
                 Breed = request.Breed,
                 Gender = request.Gender,
                 Weight = request.Weight,
-                Entered = DateTime.UtcNow
+                Entered = DateTime.UtcNow,
+                Tag = request.TagNumber,
+                Circumstances = request.Circumstances,
+                VetRequired = request.VetRequired,
+                Notes = request.Notes
             });
 
             return Unit.Task;
