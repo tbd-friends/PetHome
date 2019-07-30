@@ -8,9 +8,9 @@ using PetHome.Persistence;
 using PetHome.Persistence.Models;
 using Xunit;
 
-namespace tests
+namespace tests.concerning_completed_fields
 {
-    public class when_animal_information_is_provided_with_required_fields
+    public class when_required_fields_are_provided
     {
         private RegisterNewAnimalHandler Subject;
         private Mock<IApplicationContext> Context;
@@ -21,7 +21,7 @@ namespace tests
         private const string Gender = "Undetermined";
         private const int Weight = 2500;
 
-        public when_animal_information_is_provided_with_required_fields()
+        public when_required_fields_are_provided()
         {
             Context = new Mock<IApplicationContext>();
 
