@@ -4,6 +4,7 @@ namespace PetHome.Persistence.Models
 {
     public class Animal
     {
+        public Guid Id { get; set; }
         public string Species { get; set; }
         public DateTime Entered { get; set; }
         public string Color { get; set; }

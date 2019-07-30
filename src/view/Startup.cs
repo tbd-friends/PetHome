@@ -30,7 +30,11 @@ namespace PetHome.View
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PetHomeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<PetHomeContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<PetHomeContext>()
@@ -56,7 +60,7 @@ namespace PetHome.View
                 };
             });
 
-            services.AddSingleton<IApplicationContext, FakeApplicationContext>();
+            services.AddTransient<IApplicationContext, ApplicationContext>();
 
             services.AddMediatR(Assembly.Load("PetHome.Handlers"));
 
