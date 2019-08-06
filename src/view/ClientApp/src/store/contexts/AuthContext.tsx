@@ -1,9 +1,9 @@
 import React, { useReducer } from "react";
 import { AuthProviderProps, AuthState } from "./types";
-import { AuthActionsTypes } from "../reducers/types";
+import { AuthActionTypes } from "../reducers/types";
 
 export const AuthContext = React.createContext<
-  [AuthState, React.Dispatch<AuthActionsTypes>] | []
+  [AuthState, React.Dispatch<AuthActionTypes>] | []
 >([]);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({

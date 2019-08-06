@@ -1,8 +1,8 @@
-import { AuthActionsTypes } from "../reducers/types";
+import { AuthActionTypes } from "../reducers/types";
 
 export interface AuthState {}
 
 export interface AuthProviderProps {
-  reducer: React.Reducer<AuthState, AuthActionsTypes>;
+  reducer: React.Reducer<AuthState, AuthActionTypes>;
   initialState: AuthState;
 }

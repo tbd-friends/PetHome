@@ -30,7 +30,7 @@ export interface LoginFailedAction {
   };
 }
 
-export type AuthActionsTypes =
+export type AuthActionTypes =
   | LoginAction
   | LoginSuccessAction
   | LoginFailedAction;
