@@ -5,6 +5,7 @@ using MediatR;
 using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using PetHome.Persistence.Models;
+using Remotion.Linq.Clauses;
 
 namespace PetHome.Handlers
 {

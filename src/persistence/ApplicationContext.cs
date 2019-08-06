@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using PetHome.Persistence.Models;
@@ -23,9 +24,9 @@ namespace PetHome.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public void Add<TEntity>(TEntity entity)
+        public void Insert<TEntity>(TEntity entity) where TEntity : class
         {
-            base.Add(entity);
+            Set<TEntity>().Add(entity);
 
             SaveChanges();
         }

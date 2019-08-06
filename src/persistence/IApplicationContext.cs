@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using PetHome.Persistence.Models;
 
@@ -7,6 +8,6 @@ namespace PetHome.Persistence
     {
         IQueryable<Animal> Animals { get; }
 
-        void Add<TEntity>(TEntity entity);
+        void Insert<TEntity>(TEntity entity) where TEntity : class;
     }
 }

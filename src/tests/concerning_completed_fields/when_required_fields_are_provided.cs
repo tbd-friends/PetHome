@@ -25,7 +25,7 @@ namespace tests.concerning_completed_fields
         {
             Context = new Mock<IApplicationContext>();
 
-            Context.Setup(ctx => ctx.Add(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
+            Context.Setup(ctx => ctx.Insert(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
 
             Subject = new RegisterNewAnimalHandler(Context.Object);
 
