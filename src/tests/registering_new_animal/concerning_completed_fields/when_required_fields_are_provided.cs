@@ -8,7 +8,7 @@ using PetHome.Persistence;
 using PetHome.Persistence.Models;
 using Xunit;
 
-namespace tests.concerning_completed_fields
+namespace tests.registering_new_animal.concerning_completed_fields
 {
     public class when_required_fields_are_provided
     {

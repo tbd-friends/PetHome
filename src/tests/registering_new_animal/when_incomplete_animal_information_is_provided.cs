@@ -6,7 +6,7 @@ using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using Xunit;
 
-namespace tests
+namespace tests.registering_new_animal
 {
     public class when_incomplete_animal_information_is_provided
     {
