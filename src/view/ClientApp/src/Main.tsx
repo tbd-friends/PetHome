@@ -2,9 +2,13 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { App } from "./App";
+import { AuthProvider } from "./store/contexts/authContext";
+import { authReducer } from "./store/reducers/authReducer";
 
 export const Main: React.FC = () => (
   <Router>
-    <App />
+    <AuthProvider reducer={authReducer} initialState={{}}>
+      <App />
+    </AuthProvider>
   </Router>
 );
