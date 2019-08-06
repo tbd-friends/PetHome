@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { App } from "./App";
-import { AuthProvider } from "./store/contexts/authContext";
+import { AuthProvider } from "./store/contexts/AuthContext";
 import { authReducer } from "./store/reducers/authReducer";
 
 export const Main: React.FC = () => (
