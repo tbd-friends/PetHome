@@ -5,7 +5,6 @@ using MediatR;
 using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using PetHome.Persistence.Models;
-using Remotion.Linq.Clauses;
 
 namespace PetHome.Handlers
 {
@@ -20,7 +19,7 @@ namespace PetHome.Handlers
 
         public Task<Unit> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
         {
-            if (DoesNotHaveMinimumRequiredAnimalInformation(request))
+            if (!HasMinimumRequiredAnimalInformation(request))
             {
                 throw new ArgumentException();
             }
@@ -42,13 +41,13 @@ namespace PetHome.Handlers
             return Unit.Task;
         }
 
-        private bool DoesNotHaveMinimumRequiredAnimalInformation(RegisterNewAnimal request)
+        private bool HasMinimumRequiredAnimalInformation(RegisterNewAnimal request)
         {
-            return request == null || string.IsNullOrEmpty(request.Species) ||
-                   string.IsNullOrEmpty(request.Breed) ||
-                   string.IsNullOrEmpty(request.Color) ||
-                   string.IsNullOrEmpty(request.Gender) ||
-                   request.Weight == 0;
+            return request != null && !string.IsNullOrEmpty(request.Species) &&
+                   !string.IsNullOrEmpty(request.Breed) &&
+                   !string.IsNullOrEmpty(request.Color) &&
+                   !string.IsNullOrEmpty(request.Gender) &&
+                   request.Weight > 0;
         }
     }
 }

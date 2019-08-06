@@ -16,7 +16,7 @@ namespace PetHome.View.Infrastructure
             EntitiesAdded = new List<object>();
         }
 
-        public void Insert<TEntity>(TEntity entity)
+        public void Insert<TEntity>(TEntity entity) where TEntity : class
         {
             EntitiesAdded.Add(entity);
         }
