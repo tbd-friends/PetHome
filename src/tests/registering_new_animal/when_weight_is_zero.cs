@@ -9,7 +9,7 @@ using Xunit;
 
 namespace tests.registering_new_animal
 {
-    public class when_weight_is_zero_or_below
+    public class when_weight_is_zero
     {
         private RegisterNewAnimalHandler Subject;
         private Mock<IApplicationContext> Context;
@@ -18,9 +18,9 @@ namespace tests.registering_new_animal
         private const string Color = "Brown";
         private const string Species = "Dog";
         private const string Gender = "Undetermined";
-        private const int Weight = -2500;
+        private const uint Weight = 0;
 
-        public when_weight_is_zero_or_below()
+        public when_weight_is_zero()
         {
             Context = new Mock<IApplicationContext>();
 
