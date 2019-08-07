@@ -19,6 +19,7 @@ export const applyAuthMiddleware = (
       dispatch({
         type: AuthActions.SIGNOUT_SUCCESS
       });
+      break;
     default:
       return null;
   }
