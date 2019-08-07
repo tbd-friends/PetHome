@@ -5,6 +5,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { SignInPage } from "./pages/signin/SignInPage";
 import { AdminArea } from "./areas/admin/AdminArea";
 import { HomePage } from "./pages/home/HomePage";
+import { AdminPage } from "./areas/admin/pages/AdminPage";
 import { NotFoundPage } from "./pages/notfound/NotFoundPage";
 
 const baseTheme = createMuiTheme({});
