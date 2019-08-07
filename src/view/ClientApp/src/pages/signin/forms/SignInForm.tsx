@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export interface SignInFormValues {
   username: string;
@@ -46,6 +47,9 @@ export const SignInForm: React.FC<SingInFormProps> = ({
           onChange={handleChange}
         />
         <label htmlFor="password">Password</label>
+      </div>
+      <div>
+        <Link to="/forgotpassword">Forgot Password</Link>
       </div>
       <div>
         <button type="submit">login</button>
