@@ -6,6 +6,7 @@ import { SignInPage } from "./pages/signin/SignInPage";
 import { AdminArea } from "./areas/admin/AdminArea";
 import { HomePage } from "./pages/home/HomePage";
 import { NotFoundPage } from "./pages/notfound/NotFoundPage";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 const baseTheme = createMuiTheme({});
 
@@ -16,7 +17,7 @@ export const App: React.FC = () => {
       <Switch>
         <Route path="/signin" exact component={SignInPage} />
         <Route path="/" exact component={HomePage} />
-        <Route path="/admin" component={AdminArea} />
+        <PrivateRoute path="/admin" component={AdminArea} />
         <Route component={NotFoundPage} />
       </Switch>
     </ThemeProvider>
