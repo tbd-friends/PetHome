@@ -5,14 +5,17 @@ using PetHome.Handlers;
 using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using PetHome.Persistence.Models;
+using PetHome.Persistence.Repositories;
+using PetHome.Persistence.Repositories.Interfaces;
 using Xunit;
 
 namespace tests.registering_new_animal.concerning_completed_fields
 {
-    public class when_additional_fields_are_populated
+    public class when_additional_fields_are_provided
     {
         private RegisterNewAnimalHandler Subject;
-        private Mock<IApplicationContext> Context;
+        private Mock<IUnitOfWork> UnitOfWork;
+        private Mock<IAnimalRepository> AnimalsRepository;
         private Animal Result;
         private const string TagNumber = "A123";
         private const string Circumstances = "Found Somewhere";
@@ -25,13 +28,16 @@ namespace tests.registering_new_animal.concerning_completed_fields
         private const string Gender = "Is Valid";
         private const int Weight = 1;
 
-        public when_additional_fields_are_populated()
+        public when_additional_fields_are_provided()
         {
-            Context = new Mock<IApplicationContext>();
+            UnitOfWork = new Mock<IUnitOfWork>();
+            AnimalsRepository = new Mock<IAnimalRepository>();
 
-            Context.Setup(ctx => ctx.Insert(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
+            AnimalsRepository.Setup(ar => ar.Add(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
 
-            Subject = new RegisterNewAnimalHandler(Context.Object);
+            UnitOfWork.Setup(uow => uow.Animals).Returns(AnimalsRepository.Object);
+
+            Subject = new RegisterNewAnimalHandler(UnitOfWork.Object);
 
             Subject.Handle(new RegisterNewAnimal
             {
@@ -46,6 +52,12 @@ namespace tests.registering_new_animal.concerning_completed_fields
                 Notes = Notes
             },
                 CancellationToken.None);
+        }
+
+        [Fact]
+        public void complete_is_called_on_uow()
+        {
+            UnitOfWork.Verify(uow => uow.Complete());
         }
 
         [Fact]

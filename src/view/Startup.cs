@@ -14,7 +14,8 @@ using PetHome.View.Data.Models;
 using System.Text;
 using MediatR;
 using PetHome.Persistence;
-using PetHome.View.Infrastructure;
+using PetHome.Persistence.Repositories;
+using PetHome.Persistence.Repositories.Interfaces;
 
 namespace PetHome.View
 {
@@ -60,7 +61,7 @@ namespace PetHome.View
                 };
             });
 
-            services.AddTransient<IApplicationContext, ApplicationContext>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddMediatR(Assembly.Load("PetHome.Handlers"));
 

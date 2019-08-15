@@ -3,18 +3,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using PetHome.Handlers.Commands;
-using PetHome.Persistence;
 using PetHome.Persistence.Models;
+using PetHome.Persistence.Repositories;
+using PetHome.Persistence.Repositories.Interfaces;
 
 namespace PetHome.Handlers
 {
     public class RegisterNewAnimalHandler : IRequestHandler<RegisterNewAnimal>
     {
-        private readonly IApplicationContext _context;
+        private readonly IUnitOfWork _uow;
 
-        public RegisterNewAnimalHandler(IApplicationContext context)
+        public RegisterNewAnimalHandler(IUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         public Task<Unit> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
@@ -24,7 +25,7 @@ namespace PetHome.Handlers
                 throw new ArgumentException();
             }
 
-            _context.Insert(new Animal
+            _uow.Animals.Add(new Animal
             {
                 Species = request.Species,
                 Color = request.Color,
@@ -37,6 +38,8 @@ namespace PetHome.Handlers
                 VetRequired = request.VetRequired,
                 Notes = request.Notes
             });
+
+            _uow.Complete();
 
             return Unit.Task;
         }

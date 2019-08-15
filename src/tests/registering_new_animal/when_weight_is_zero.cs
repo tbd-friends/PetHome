@@ -5,6 +5,8 @@ using PetHome.Handlers;
 using PetHome.Handlers.Commands;
 using PetHome.Persistence;
 using PetHome.Persistence.Models;
+using PetHome.Persistence.Repositories;
+using PetHome.Persistence.Repositories.Interfaces;
 using Xunit;
 
 namespace tests.registering_new_animal
@@ -12,7 +14,7 @@ namespace tests.registering_new_animal
     public class when_weight_is_zero
     {
         private RegisterNewAnimalHandler Subject;
-        private Mock<IApplicationContext> Context;
+        private Mock<IUnitOfWork> UnitOfWork;
         private Animal Result;
         private const string Breed = "Golden Doodle";
         private const string Color = "Brown";
@@ -22,11 +24,9 @@ namespace tests.registering_new_animal
 
         public when_weight_is_zero()
         {
-            Context = new Mock<IApplicationContext>();
+            UnitOfWork = new Mock<IUnitOfWork>();
 
-            Context.Setup(ctx => ctx.Insert(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
-
-            Subject = new RegisterNewAnimalHandler(Context.Object);
+            Subject = new RegisterNewAnimalHandler(UnitOfWork.Object);
         }
 
         [Fact]

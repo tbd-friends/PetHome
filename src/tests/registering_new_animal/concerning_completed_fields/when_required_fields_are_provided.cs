@@ -4,8 +4,8 @@ using FluentAssertions;
 using Moq;
 using PetHome.Handlers;
 using PetHome.Handlers.Commands;
-using PetHome.Persistence;
 using PetHome.Persistence.Models;
+using PetHome.Persistence.Repositories.Interfaces;
 using Xunit;
 
 namespace tests.registering_new_animal.concerning_completed_fields
@@ -13,7 +13,8 @@ namespace tests.registering_new_animal.concerning_completed_fields
     public class when_required_fields_are_provided
     {
         private RegisterNewAnimalHandler Subject;
-        private Mock<IApplicationContext> Context;
+        private Mock<IUnitOfWork> UnitOfWork;
+        private Mock<IAnimalRepository> AnimalsRepository;
         private Animal Result;
         private const string Breed = "Golden Doodle";
         private const string Color = "Brown";
@@ -23,14 +24,23 @@ namespace tests.registering_new_animal.concerning_completed_fields
 
         public when_required_fields_are_provided()
         {
-            Context = new Mock<IApplicationContext>();
+            UnitOfWork = new Mock<IUnitOfWork>();
+            AnimalsRepository = new Mock<IAnimalRepository>();
 
-            Context.Setup(ctx => ctx.Insert(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
+            AnimalsRepository.Setup(ar => ar.Add(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
 
-            Subject = new RegisterNewAnimalHandler(Context.Object);
+            UnitOfWork.Setup(uow => uow.Animals).Returns(AnimalsRepository.Object);
+
+            Subject = new RegisterNewAnimalHandler(UnitOfWork.Object);
 
             Subject.Handle(new RegisterNewAnimal()
             { Species = Species, Color = Color, Breed = Breed, Gender = Gender, Weight = Weight }, CancellationToken.None);
+        }
+
+        [Fact]
+        public void complete_is_called_on_uow()
+        {
+            UnitOfWork.Verify(uow => uow.Complete());
         }
 
         [Fact]
