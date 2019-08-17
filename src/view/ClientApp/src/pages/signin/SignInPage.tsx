@@ -19,7 +19,8 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
 
   const handleSignInOidc = () => {
     console.log("State: ", authCtx.state);
-    authCtx.userManager && authCtx.userManager.signinRedirect();
+    authCtx.userManager &&
+      authCtx.userManager.signinRedirect({ data: { returnUrl } });
   };
 
   const handleRegisterUser = (values: RegisterUserFormValues) => {

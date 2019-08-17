@@ -8,7 +8,7 @@ const oidcSettings = {
   client_id: "331E5618-9985-43FC-BB76-90260B21E168",
   redirect_uri: `${window.location.protocol}//${window.location.hostname}${
     window.location.port ? `:${window.location.port}` : ""
-  }/signin-oidc`,
+  }/callback`,
   response_type: "token id_token",
   scope: "openid profile PetHomeApi",
   authority: "https://localhost:5001",

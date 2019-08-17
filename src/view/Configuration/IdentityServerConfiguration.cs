@@ -38,7 +38,7 @@ namespace PetHome.View.Configuration
                     RequirePkce = true,
                     RequireClientSecret = false,
 
-                    RedirectUris = { "https://localhost:5001/signin-oidc", "http://localhost:5000/signin-oidc" },
+                    RedirectUris = { "https://localhost:5001/callback", "http://localhost:5000/callback" },
                     PostLogoutRedirectUris = { "https://localhost:5001/signout-callback-oidc", "http://localhost:5000/signout-callback-oidc" },
                     
                     AllowedScopes =
