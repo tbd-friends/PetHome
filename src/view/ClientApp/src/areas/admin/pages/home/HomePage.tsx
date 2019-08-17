@@ -16,7 +16,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <h1>{JSON.stringify(authCtx.state)}</h1>
+      <pre>{JSON.stringify(authCtx.state, null, 2)}</pre>
     </div>
   );
 };
