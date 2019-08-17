@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace PetHome.View.Data
 {
-    public class PetHomeContext : IdentityDbContext<AppUser, IdentityRole, string>
+    public class IdentityContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
-        public PetHomeContext(DbContextOptions<PetHomeContext> options) : base (options)
+        public IdentityContext(DbContextOptions<IdentityContext> options) : base (options)
         {
 
         }

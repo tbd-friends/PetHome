@@ -1,13 +1,15 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using PetHome.View.Configuration;
 using PetHome.View.Data;
 using PetHome.View.Data.Models;
 using System.Text;
@@ -16,41 +18,58 @@ namespace PetHome.View
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PetHomeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<PetHomeContext>()
-                .AddDefaultTokenProviders();
+            //services.AddDefaultIdentity<ApplicationUser>()
+            //    .AddEntityFrameworkStores<IdentityContext>();
 
-            var signingKey = Configuration["TokenSecret"];
 
-            services.AddAuthentication(options =>
+            var builder = services.AddIdentityServer()
+                .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
+                .AddInMemoryApiResources(IdentityServerConfiguration.GetApis())
+                .AddInMemoryClients(IdentityServerConfiguration.GetClients())
+                .AddTestUsers(IdentityServerConfiguration.GetUsers());
+            
+            if (Environment.IsDevelopment())
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(config =>
+                builder.AddDeveloperSigningCredential();
+            }
+            else
             {
-                config.RequireHttpsMetadata = false;
-                config.SaveToken = true;
-                config.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
-                    ValidateAudience = false,
-                    ValidateIssuer = false,
-                    ValidateLifetime = false,
-                    ValidateIssuerSigningKey = true
-                };
+                throw new System.Exception("need to configure key material");
+            }
 
+            services.AddAuthentication(option =>
+            {
+                option.DefaultScheme = "Cookies";
+                option.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.SignInScheme = "Cookies";
+
+                options.Authority = "https://localhost:5000";
+                options.RequireHttpsMetadata = false;
+
+                options.TokenValidationParameters.NameClaimType = "name";
+
+                options.ClientId = "331E5618-9985-43FC-BB76-90260B21E168";
+                options.SaveTokens = true;
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -63,11 +82,12 @@ namespace PetHome.View
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -77,10 +97,13 @@ namespace PetHome.View
             }
 
             app.UseHttpsRedirection();
+
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();
+            app.UseIdentityServer();
 
             app.UseMvc(routes =>
             {
@@ -93,9 +116,9 @@ namespace PetHome.View
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                if (Environment.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
                 }
             });
         }

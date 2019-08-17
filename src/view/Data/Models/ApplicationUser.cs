@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PetHome.View.Data.Models
 {
-    public class AppUser : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
 
     }

@@ -17,18 +17,6 @@ export const HomePage: React.FC = () => {
   return (
     <div className={classes.root}>
       <h1>{JSON.stringify(authCtx.state)}</h1>
-      <button
-        disabled={authCtx.state.user !== undefined}
-        onClick={() => authCtx.actions.signIn("test", "test")}
-      >
-        SignIn
-      </button>
-      <button
-        disabled={authCtx.state.user === undefined}
-        onClick={() => authCtx.actions.signOut()}
-      >
-        SignOut
-      </button>
     </div>
   );
 };
