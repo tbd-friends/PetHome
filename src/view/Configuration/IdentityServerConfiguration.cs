@@ -1,12 +1,8 @@
 ﻿using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
-using PetHome.View.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace PetHome.View.Configuration
 {
@@ -23,14 +19,14 @@ namespace PetHome.View.Configuration
 
         public static IEnumerable<ApiResource> GetApis()
         {
-            return new ApiResource[] {
+            return new [] {
                 new ApiResource("PetHomeApi", "PetHome API")
             };
         }
 
         public static IEnumerable<Client> GetClients()
         {
-            return new Client[] {
+            return new [] {
                 new Client
                 {
                     ClientId = "331E5618-9985-43FC-BB76-90260B21E168",
@@ -48,7 +44,7 @@ namespace PetHome.View.Configuration
                         "PetHomeApi"
                     },
 
-                    AllowAccessTokensViaBrowser = true
+                    AllowAccessTokensViaBrowser = true,
                 }
             };
         }
