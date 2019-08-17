@@ -6,7 +6,7 @@ const authReducerEx: React.Reducer<AuthState, AuthActionTypes> = (
   state,
   action
 ) => {
-  console.log(action);
+  console.log("Action: ", action);
   switch (action.type) {
     case AuthActions.USER_EXPIRED:
       return { ...state, user: null, isLoadingUser: false };
@@ -29,6 +29,6 @@ export const authReducer: React.Reducer<AuthState, AuthActionTypes> = (
   action
 ) => {
   const newState = authReducerEx(state, action);
-  console.log(newState);
+  console.log("New State: ", newState);
   return newState;
 };
