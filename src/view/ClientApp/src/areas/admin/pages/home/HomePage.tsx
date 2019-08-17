@@ -17,6 +17,13 @@ export const HomePage: React.FC = () => {
   return (
     <div className={classes.root}>
       <pre>{JSON.stringify(authCtx.state, null, 2)}</pre>
+      <button
+        onClick={() =>
+          authCtx.userManager && authCtx.userManager.signoutRedirect()
+        }
+      >
+        Sign Out
+      </button>
     </div>
   );
 };

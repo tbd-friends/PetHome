@@ -5,13 +5,13 @@ import { App } from "./App";
 import { AuthProvider } from "./store/auth/AuthContext";
 
 const oidcSettings = {
+  authority: "https://localhost:5001/.well-known/openid-configuration", //TODO: load authority from environment or configs. or instrospect like redirect_uri
   client_id: "331E5618-9985-43FC-BB76-90260B21E168",
   redirect_uri: `${window.location.protocol}//${window.location.hostname}${
     window.location.port ? `:${window.location.port}` : ""
   }/callback`,
   response_type: "token id_token",
   scope: "openid profile PetHomeApi",
-  authority: "https://localhost:5001",
   silent_redirect_uri: `${window.location.protocol}//${
     window.location.hostname
   }${window.location.port ? `:${window.location.port}` : ""}/silent_renew.html`,

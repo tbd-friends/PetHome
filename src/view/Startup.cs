@@ -1,18 +1,11 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using PetHome.View.Configuration;
 using PetHome.View.Data;
-using PetHome.View.Data.Models;
-using System.Text;
 
 namespace PetHome.View
 {
@@ -34,10 +27,6 @@ namespace PetHome.View
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDefaultIdentity<ApplicationUser>()
-            //    .AddEntityFrameworkStores<IdentityContext>();
-
-
             var builder = services.AddIdentityServer()
                 .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
                 .AddInMemoryApiResources(IdentityServerConfiguration.GetApis())
@@ -53,6 +42,8 @@ namespace PetHome.View
                 throw new System.Exception("need to configure key material");
             }
 
+
+            // TODO not sure this is the right authentication to add, think we just need jwt bearer tokens.
             services.AddAuthentication(option =>
             {
                 option.DefaultScheme = "Cookies";
