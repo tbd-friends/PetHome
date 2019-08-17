@@ -27,11 +27,11 @@ namespace PetHome.View.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _config;
 
-        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IConfiguration config)
+        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration config)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -63,7 +63,7 @@ namespace PetHome.View.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new AppUser
+                var newUser = new ApplicationUser
                 {
                     UserName = register.Email,
                     Email = register.Email

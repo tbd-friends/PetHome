@@ -11,18 +11,6 @@ export const AdminPage: React.FC = () => {
     <PetHomeProvider reducer={petHomeReducer} initialState={{}}>
       <Layout>Admin Page (routes for admin area</Layout>)
       <h1>{JSON.stringify(authCtx.state)}</h1>
-      <button
-        disabled={authCtx.state.user !== undefined}
-        onClick={() => authCtx.actions.signIn("test", "test")}
-      >
-        SignIn
-      </button>
-      <button
-        disabled={authCtx.state.user === undefined}
-        onClick={() => authCtx.actions.signOut()}
-      >
-        SignOut
-      </button>
     </PetHomeProvider>
   );
 };

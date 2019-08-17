@@ -1,6 +1,4 @@
-export interface IUser {
-  sid: string;
-}
+import { User, UserManager } from "oidc-client";
 
 export interface IAuthActions {
   signIn: (username: string, password: string) => void;
@@ -9,57 +7,70 @@ export interface IAuthActions {
 
 export interface IAuthContext {
   state: AuthState;
-  dispatch?: (action: AuthActionTypes) => void;
-  actions: IAuthActions;
+  userManager?: UserManager;
 }
 
 export interface AuthState {
-  user: IUser | undefined;
-  error: any | undefined;
+  user: User | null;
+  isLoadingUser: boolean;
+  error?: Error;
 }
 
 export enum AuthActions {
-  SIGNIN = "@@auth/SIGNIN",
-  SIGNIN_SUCCESS = "@@auth/SIGNIN_SUCCESS",
-  SIGNIN_FAILED = "@@auth/SIGNIN_FAILED",
-  SIGNOUT = "@@auth/SIGNOUT",
-  SIGNOUT_SUCCESS = "@@auth/SIGNOUT_SUCCESS",
-  SIGNOUT_FAILED = "@@auth/SIGNOUT_FAILED"
+  USER_EXPIRED = "@@auth/USER_EXPIRED",
+  SILENT_RENEW_ERROR = "@@auth/SILENT_RENEW_ERROR",
+  SESSION_TERMINATED = "@@auth/SESSION_TERMINATED",
+  USER_EXPIRING = "@@auth/USER_EXPIRING",
+  USER_FOUND = "@@auth/USER_FOUND",
+  LOADING_USER = "@@auth/LOADING_USER",
+  USER_SIGNED_OUT = "@@auth/USER_SIGNED_OUT",
+  LOAD_USER_ERROR = "@@auth/LOAD_USER_ERROR"
 }
 
-export interface LoginAction {
-  type: typeof AuthActions.SIGNIN;
+export interface UserExpiredAction {
+  type: typeof AuthActions.USER_EXPIRED;
+}
+
+export interface UserFoundAction {
+  type: typeof AuthActions.USER_FOUND;
   payload: {
-    username: string;
-    password: string;
+    user: User;
   };
 }
 
-export interface LoginSuccessAction {
-  type: typeof AuthActions.SIGNIN_SUCCESS;
+export interface SilentRenewErrorAction {
+  type: typeof AuthActions.SILENT_RENEW_ERROR;
   payload: {
-    user: IUser;
+    error: Error;
   };
 }
 
-export interface LoginFailedAction {
-  type: typeof AuthActions.SIGNIN_FAILED;
-  payload: {
-    error: any;
-  };
+export interface SessionTerminatedAction {
+  type: typeof AuthActions.SESSION_TERMINATED;
 }
 
-export interface LogoutAction {
-  type: typeof AuthActions.SIGNOUT;
+export interface UserExpiringAction {
+  type: typeof AuthActions.USER_EXPIRING;
 }
 
-export interface LogoutSuccessAction {
-  type: typeof AuthActions.SIGNOUT_SUCCESS;
+export interface LoadingUserAction {
+  type: typeof AuthActions.LOADING_USER;
+}
+
+export interface UserSignedOutAction {
+  type: typeof AuthActions.USER_SIGNED_OUT;
+}
+
+export interface LoadUserErrorAction {
+  type: typeof AuthActions.LOAD_USER_ERROR;
 }
 
 export type AuthActionTypes =
-  | LoginAction
-  | LoginSuccessAction
-  | LoginFailedAction
-  | LogoutAction
-  | LogoutSuccessAction;
+  | UserExpiredAction
+  | UserFoundAction
+  | SilentRenewErrorAction
+  | SessionTerminatedAction
+  | UserExpiringAction
+  | LoadingUserAction
+  | UserSignedOutAction
+  | LoadUserErrorAction;

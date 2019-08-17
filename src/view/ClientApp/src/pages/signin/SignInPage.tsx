@@ -8,14 +8,18 @@ import { useAuth } from "../../store/auth/useAuth";
 import { Redirect, RouteProps } from "react-router";
 
 export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
-  console.log(props);
   const returnUrl = (location && location.state.returnUrl) || "/";
   const authCtx = useAuth();
   const [currTab, setCurrTab] = React.useState(0);
 
   const handleSignIn = (values: SignInFormValues) => {
     console.log(values);
-    authCtx.actions.signIn(values.username, values.password);
+    //authCtx.actions.signIn(values.username, values.password);
+  };
+
+  const handleSignInOidc = () => {
+    console.log("State: ", authCtx.state);
+    authCtx.userManager && authCtx.userManager.signinRedirect();
   };
 
   const handleRegisterUser = (values: RegisterUserFormValues) => {
@@ -53,6 +57,8 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
         </button>
       </div>
       <div>{tabs[currTab]}</div>
+
+      <button onClick={handleSignInOidc}>Test Oidc Login Redirect</button>
     </div>
   );
 };
