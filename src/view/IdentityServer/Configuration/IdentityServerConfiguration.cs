@@ -48,17 +48,5 @@ namespace PetHome.View.IdentityServer.Configuration
                 }
             };
         }
-
-        public static List<TestUser> GetUsers()
-        {
-            return new List<TestUser>() {
-                new TestUser {
-                    SubjectId= "1",
-                    Username="manager@pethome.app",
-                    Claims = new [] { new Claim("name", "Manager") },
-                    Password = "home*4!pets"
-                }
-            };
-        }
     }
 }

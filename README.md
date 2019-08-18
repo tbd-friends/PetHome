@@ -1,6 +1,6 @@
 # PetHome
 
-Navigate to src/view folder. 
+Navigate to src/view folder.
 
 ## Getting Started
 
@@ -12,21 +12,34 @@ Once you've cloned the repository
 
 ## From a command line / Powershell
 
+- Create `global.json` file
 - Navigate to the view project (i.e. c:\dev\pethome\src\view)
 - After first checkout
-```
-> dotnet ef database update --context PetHomeContext
-> dotnet ef database update --context ApplicationContext
-```
 
-When the database is ready
+1. Build
 
 ```
+> dotnet restore
 > dotnet build
+```
+
+2. Run Migration / Seed Database
+
+```
+> dotnet run /seed
+```
+
+3. Run application
+
+```
 > dotnet run
 ```
-  
-## In Visual Studio Code 
+
+#### `global.json`
+
+When not using Visual Studio, you may need to cap the version of .NET Core. Use a global.json file to set it to 2.2.300.
+
+## In Visual Studio
 
 - After opening the solution
 - Open Package Manager Console
@@ -36,8 +49,4 @@ When the database is ready
 > Update-Database -Context ApplicationContext
 ```
 
-  Start Debugging
-
-#### global.json
-
-When not using Visual Studio, you may need to cap the version of .NET Core. Use a global.json file to set it to 2.2.300.
+Start Debugging
