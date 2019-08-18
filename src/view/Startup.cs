@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,10 @@ using Microsoft.IdentityModel.Tokens;
 using PetHome.View.Data;
 using PetHome.View.Data.Models;
 using System.Text;
+using MediatR;
+using PetHome.Persistence;
+using PetHome.Persistence.Repositories;
+using PetHome.Persistence.Repositories.Interfaces;
 
 namespace PetHome.View
 {
@@ -26,10 +31,14 @@ namespace PetHome.View
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PetHomeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<PetHomeContext>()
+                .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
             var signingKey = Configuration["TokenSecret"];
@@ -50,8 +59,11 @@ namespace PetHome.View
                     ValidateLifetime = false,
                     ValidateIssuerSigningKey = true
                 };
-
             });
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddMediatR(Assembly.Load("PetHome.Handlers"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

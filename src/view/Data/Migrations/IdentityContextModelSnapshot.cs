@@ -3,13 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PetHome.View.Data;
 
 namespace PetHome.View.Data.Migrations
 {
-    [DbContext(typeof(PetHomeContext))]
-    partial class PetHomeContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(IdentityContext))]
+    partial class IdentityContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
