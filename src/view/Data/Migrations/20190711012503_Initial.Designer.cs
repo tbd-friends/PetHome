@@ -9,7 +9,7 @@ using PetHome.View.Data;
 
 namespace PetHome.View.Data.Migrations
 {
-    [DbContext(typeof(PetHomeContext))]
+    [DbContext(typeof(IdentityContext))]
     [Migration("20190711012503_Initial")]
     partial class Initial
     {
