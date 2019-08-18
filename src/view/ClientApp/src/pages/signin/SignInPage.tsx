@@ -49,7 +49,7 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
 
   return (
     <div>
-      <div>
+      {/* <div>
         <button disabled={currTab === 0} onClick={() => setCurrTab(0)}>
           Register User
         </button>
@@ -57,8 +57,12 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
           Sign In
         </button>
       </div>
-      <div>{tabs[currTab]}</div>
-
+      <div>{tabs[currTab]}</div> */}
+      <p>
+        {
+          "For testing purposes, should just redirect do idp, probably in <PrivateRoute />"
+        }
+      </p>
       <button onClick={handleSignInOidc}>Test Oidc Login Redirect</button>
     </div>
   );

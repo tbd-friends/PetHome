@@ -49,6 +49,12 @@ namespace PetHome.View {
                 .AddInMemoryClients (IdentityServerConfiguration.GetClients ())
                 .AddTestUsers (IdentityServerConfiguration.GetUsers ());
 
+            if (Environment.IsDevelopment ()) {
+                builder.AddDeveloperSigningCredential ();
+            } else {
+                throw new System.Exception ("need to configure key material");
+            }
+
             services.AddAuthentication (option => {
                     option.DefaultScheme = "Cookies";
                     option.DefaultChallengeScheme = "oidc";
