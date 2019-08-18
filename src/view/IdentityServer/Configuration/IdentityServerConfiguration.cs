@@ -4,7 +4,7 @@ using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace PetHome.View.Configuration
+namespace PetHome.View.IdentityServer.Configuration
 {
     public static class IdentityServerConfiguration
     {
@@ -19,14 +19,14 @@ namespace PetHome.View.Configuration
 
         public static IEnumerable<ApiResource> GetApis()
         {
-            return new [] {
+            return new[] {
                 new ApiResource("PetHomeApi", "PetHome API")
             };
         }
 
         public static IEnumerable<Client> GetClients()
         {
-            return new [] {
+            return new[] {
                 new Client
                 {
                     ClientId = "331E5618-9985-43FC-BB76-90260B21E168",
@@ -36,7 +36,7 @@ namespace PetHome.View.Configuration
 
                     RedirectUris = { "https://localhost:5001/callback", "http://localhost:5000/callback" },
                     PostLogoutRedirectUris = { "https://localhost:5001/signout-callback-oidc", "http://localhost:5000/signout-callback-oidc" },
-                    
+
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -54,9 +54,9 @@ namespace PetHome.View.Configuration
             return new List<TestUser>() {
                 new TestUser {
                     SubjectId= "1",
-                    Username="test@my.com",
-                    Claims = new [] { new Claim("name", "Test User") },
-                    Password = "Hello01!"
+                    Username="manager@pethome.app",
+                    Claims = new [] { new Claim("name", "Manager") },
+                    Password = "home*4!pets"
                 }
             };
         }

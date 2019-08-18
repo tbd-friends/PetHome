@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PetHome.View.Configuration;
 using PetHome.View.Data;
+using PetHome.View.IdentityServer.Configuration;
 
 namespace PetHome.View
 {
@@ -70,6 +72,14 @@ namespace PetHome.View
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            // Add views from Identity
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                // {2} is area, {1} is controller, {0} is the action
+                options.ViewLocationFormats.Add("/IdentityServer/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+                options.ViewLocationFormats.Add("/IdentityServer/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,7 +119,8 @@ namespace PetHome.View
 
                 if (Environment.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
+                    spa.UseReactDevelopmentServer("start");
                 }
             });
         }

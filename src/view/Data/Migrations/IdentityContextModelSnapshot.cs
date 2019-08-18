@@ -9,7 +9,7 @@ using PetHome.View.Data;
 namespace PetHome.View.Data.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class PetHomeContextModelSnapshot : ModelSnapshot
+    partial class IdentityContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
