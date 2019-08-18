@@ -8,7 +8,7 @@ namespace PetHome.View.Data
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base (options)
         {
-
+            
         }
     }
 }
