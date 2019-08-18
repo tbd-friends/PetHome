@@ -84,6 +84,7 @@ namespace PetHome.View {
             });
 
             // Add views from Identity
+
             services.Configure<RazorViewEngineOptions> (options => {
                 // {2} is area, {1} is controller, {0} is the action
                 options.ViewLocationFormats.Add ("/IdentityServer/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
