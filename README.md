@@ -2,7 +2,9 @@
 
 Navigate to src/view folder. 
 
-After cloning;
+## Getting Started
+
+Once you've cloned the repository
 
 - Copy sample.appsettings.Development.json to appsettings.Development.json.
 - Update the connection string for your database.
@@ -35,3 +37,7 @@ When the database is ready
 ```
 
   Start Debugging
+
+#### global.json
+
+When not using Visual Studio, you may need to cap the version of .NET Core. Use a global.json file to set it to 2.2.300.
