@@ -11,7 +11,7 @@ const oidcSettings = {
     window.location.port ? `:${window.location.port}` : ""
   }/callback`,
   response_type: "token id_token",
-  scope: "openid profile PetHomeApi",
+  scope: "openid profile PetHomeApi role email",
   silent_redirect_uri: `${window.location.protocol}//${
     window.location.hostname
   }${window.location.port ? `:${window.location.port}` : ""}/silent_renew.html`,

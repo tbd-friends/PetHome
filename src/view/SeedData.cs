@@ -58,6 +58,8 @@ namespace PetHome.View
                     context.Database.Migrate();
 
                     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
                     var manager = userManager.FindByNameAsync("manager@pethome.app").Result;
                     if (manager == null)
                     {
@@ -86,6 +88,31 @@ namespace PetHome.View
                     else
                     {
                         Console.WriteLine("Manager already exists");
+                    }
+
+                    var managerRole = roleManager.FindByNameAsync("PetHome.Manager").Result;
+                    if (managerRole == null)
+                    {
+                        managerRole = new IdentityRole
+                        {
+                            Name = "PetHome.Manager",
+                        };
+                        var result = roleManager.CreateAsync(managerRole).Result;
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userManager.AddToRoleAsync(manager, managerRole.Name).Result;
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+                        Console.WriteLine("Manager Role created, and assigned to Manager");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Manager Role already exists");
                     }
 
                 }

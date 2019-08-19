@@ -75,7 +75,14 @@ namespace PetHome.View
             }
 
             services.AddAuthentication()
-                .AddJwtBearer(options => { });
+                .AddIdentityServerAuthentication(
+                options =>
+                {
+                    options.Authority = "https://localhost:5000";
+                    options.ApiName = "PetHomeApi";
+                });
+
+
             //services.AddAuthentication (option => {
             //        option.DefaultScheme = "Cookies";
             //        option.DefaultChallengeScheme = "oidc";

@@ -10,10 +10,14 @@ namespace PetHome.View.IdentityServer.Configuration
     {
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
+            var roleResource = new IdentityResource("role", "Role", claimTypes: new[] { "role" });
+
             return new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResources.Email(),
+                roleResource
             };
         }
 
@@ -30,6 +34,8 @@ namespace PetHome.View.IdentityServer.Configuration
                 new Client
                 {
                     ClientId = "331E5618-9985-43FC-BB76-90260B21E168",
+                    ClientName = "PetHome Client",
+
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequirePkce = true,
                     RequireClientSecret = false,
@@ -41,7 +47,9 @@ namespace PetHome.View.IdentityServer.Configuration
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "PetHomeApi"
+                        IdentityServerConstants.StandardScopes.Email,
+                        "PetHomeApi",
+                        "role"
                     },
 
                     AllowAccessTokensViaBrowser = true,
