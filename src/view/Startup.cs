@@ -33,32 +33,41 @@ namespace PetHome.View
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<IdentityContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(connectionString));
 
             services.AddDbContext<ApplicationContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
-            var builder = services.AddIdentityServer(options =>
-            {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-            })
-                .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResources())
-                .AddInMemoryApiResources(IdentityServerConfiguration.GetApis())
-                .AddInMemoryClients(IdentityServerConfiguration.GetClients())
+            var identityServer = services.AddIdentityServer(options =>
+             {
+                 options.Events.RaiseErrorEvents = true;
+                 options.Events.RaiseInformationEvents = true;
+                 options.Events.RaiseFailureEvents = true;
+                 options.Events.RaiseSuccessEvents = true;
+             })
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString, sql =>
+                    sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString, sql =>
+                    sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
+                    options.EnableTokenCleanup = true;
+                })
                 .AddAspNetIdentity<ApplicationUser>();
 
 
             if (Environment.IsDevelopment())
             {
-                builder.AddDeveloperSigningCredential();
+                identityServer.AddDeveloperSigningCredential();
             }
             else
             {
