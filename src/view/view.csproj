@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -24,6 +24,29 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190829013721_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829013721_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829014857_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829014857_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829015915_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829015915_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829020009_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829020009_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829020154_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829020154_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829020245_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829020245_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829021055_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829021055_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829023307_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829023307_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829023348_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829023348_SeedInitialUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190829023729_SeedInitialUser.cs" />
+    <Compile Remove="Data\Migrations\20190829023729_SeedInitialUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
