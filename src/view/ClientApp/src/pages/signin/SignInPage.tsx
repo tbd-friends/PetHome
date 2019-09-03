@@ -14,7 +14,6 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
   const [currTab, setCurrTab] = React.useState(0);
 
   const handleSignIn = (values: SignInFormValues) => {
-    console.log(values);
     authCtx.actions.signIn(values.username, values.password);
   };
 
@@ -24,7 +23,10 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
 
   const signInForm = (
     <SignInForm
-      initialValues={{ username: "", password: "" }}
+      initialValues={{
+        username: "manager@pethome.app",
+        password: "I@mAflUffYBan8n#!"
+      }}
       onSignIn={handleSignIn}
     />
   );
@@ -53,6 +55,7 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
         </button>
       </div>
       <div>{tabs[currTab]}</div>
+      {authCtx.state.error && <div>{authCtx.state.error}</div>}
     </div>
   );
 };
