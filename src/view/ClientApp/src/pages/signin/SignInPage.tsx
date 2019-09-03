@@ -25,7 +25,7 @@ export const SignInPage: React.FC<RouteProps> = ({ location, ...props }) => {
     <SignInForm
       initialValues={{
         username: "manager@pethome.app",
-        password: "I@mAflUffYBan8n#!"
+        password: ""
       }}
       onSignIn={handleSignIn}
     />
