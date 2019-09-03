@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

@@ -8,6 +8,7 @@ Once you've cloned the repository
 
 - Copy sample.appsettings.Development.json to appsettings.Development.json.
 - Update the connection string for your database.
+- Set the Seed/ManagerPW to a valid password (Numbers, letters, upper/lower case)
 - **DO NOT** add settings to appsettings.json
 
 ## From a command line / Powershell

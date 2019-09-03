@@ -8,5 +8,8 @@
     "DefaultConnection": "Server=(localdb)\\<server name>;Database=<Database Name>;Trusted_Connection=True;"
   },
   "AllowedHosts": "*",
-  "TokenSecret": "Super_secret_token"
+  "TokenSecret": "Super_secret_token",
+  "Seed": {
+    "ManagerPw": ""
+  }
 }
