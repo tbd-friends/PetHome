@@ -42,6 +42,10 @@ namespace PetHome.View
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddOpenApiDocument(cfg =>
+            {
+            });
+
             var signingKey = Configuration["TokenSecret"];
 
             services.AddAuthentication(options =>
@@ -94,6 +98,14 @@ namespace PetHome.View
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+            app.UseReDoc(options =>
+            {
+                options.Path = "/redoc";
+                options.DocumentPath = "/swagger/v1/swagger.json";
+            });
 
             app.UseMvc(routes =>
             {
