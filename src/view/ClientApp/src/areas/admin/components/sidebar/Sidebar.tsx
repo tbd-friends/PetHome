@@ -77,7 +77,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
               button
               className={classes.nested}
               component={Link}
-              to={"/admin/pets"}
+              to={"/admin/pets/register"}
             >
               <ListItemIcon>
                 <NoteAdd />

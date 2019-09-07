@@ -9,6 +9,7 @@ import { Content } from "./components/content/Content";
 import { Footer } from "./components/footer/Footer";
 import { Route } from "react-router";
 import { PetsPage } from "./pages/pet/PetsPage";
+import { RegisterPetsPage } from "./pages/pet/RegisterPetsPage";
 import { HomePage } from "./pages/home/HomePage";
 
 export const AdminArea: React.FC = () => {
@@ -20,7 +21,12 @@ export const AdminArea: React.FC = () => {
         <Sidebar links={[]} />
         <Content>
           <Route path="/admin" exact component={HomePage} />
-          <Route path="/admin/pets" component={PetsPage} />
+          <Route path="/admin/pets" exact component={PetsPage} />
+          <Route
+            path="/admin/pets/register"
+            component={RegisterPetsPage}
+            exact
+          />
         </Content>
         <Footer />
       </Layout>
