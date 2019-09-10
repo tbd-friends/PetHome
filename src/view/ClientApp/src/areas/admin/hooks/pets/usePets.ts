@@ -4,5 +4,6 @@ import { PetHomeActions } from "../../store/reducers/types";
 
 export const usePets = () => {
   const [petHomeContext, dispatch] = React.useContext(PetHomeContext);
-  return [petHomeContext, {}];
+
+  return petHomeContext;
 };

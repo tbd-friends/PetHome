@@ -1,5 +1,5 @@
 import React from "react";
-//import { useLayout } from "../layout/useLayout";
+import { usePets } from "../../hooks/pets/usePets";
 import { RegisterPetsForm } from "./forms/RegisterPetForm";
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
 import { returnStatement } from "@babel/types";
@@ -12,14 +12,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const handleSubmit = (values: any) => {
-  console.log(values);
-  return;
-};
-
 export const RegisterPetsPage: React.FC = () => {
-  //const layoutCtx = useLayout();
+  const petsContext = usePets();
   const classes = useStyles();
+
+  const handleSubmit = (values: any) => {
+    //petsContext.actions.register(values);
+  };
 
   return (
     <div className={classes.root}>
