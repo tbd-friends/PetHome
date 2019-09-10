@@ -1,5 +1,5 @@
 import React from "react";
-import { PetHomeActionTypes } from "./types";
+import { PetHomeActionTypes, PetHomeActions } from "./types";
 import { PetHomeState } from "../contexts/types";
 
 export const petHomeReducer: React.Reducer<PetHomeState, PetHomeActionTypes> = (
@@ -7,6 +7,8 @@ export const petHomeReducer: React.Reducer<PetHomeState, PetHomeActionTypes> = (
   action
 ) => {
   switch (action.type) {
+    case PetHomeActions.REGISTER_ANIMAL:
+      return { ...state, animal: action.payload };
     default:
       return state;
   }

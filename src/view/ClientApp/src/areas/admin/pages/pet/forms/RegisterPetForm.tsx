@@ -12,7 +12,27 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const RegisterPetsForm: React.FC = () => {
+export interface RegisterPetValues {
+  species: string;
+  breed: string;
+  color: string;
+  gender: string;
+  weight: number;
+  tagNumber: string;
+  circumstances: string;
+  vetRequired: boolean;
+  notes: string;
+}
+
+interface RegisterPetProps {
+  initialValues: RegisterPetValues;
+  onSubmit: (value: RegisterPetValues) => void;
+}
+
+export const RegisterPetsForm: React.FC<RegisterPetProps> = ({
+  initialValues,
+  onSubmit
+}) => {
   //const layoutCtx = useLayout();
   const classes = useStyles();
 
@@ -21,39 +41,22 @@ export const RegisterPetsForm: React.FC = () => {
     breed: Yup.string().required("You require a breed"),
     color: Yup.string().required("You must enter a color"),
     gender: Yup.string().required("Gender is required"),
-    weight: Yup.number().moreThan(10, "You must enter a weight")
+    weight: Yup.number()
+      .moreThan(10, "You must enter a weight")
+      .lessThan(100000, "That is not an animal we can support")
   });
 
   return (
     <div className={classes.root}>
       <Formik
-        initialValues={{
-          species: "",
-          breed: "",
-          color: "",
-          gender: "",
-          weight: 0,
-          tagNumber: "",
-          circumstances: "",
-          vetRequired: "",
-          notes: ""
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
 
-          console.log(values);
+          onSubmit(values);
         }}
-        render={({
-          values,
-          errors,
-          status,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting
-        }) => (
+        render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <div>
               <Field type="text" name="species" placeholder="Species" />
@@ -72,7 +75,11 @@ export const RegisterPetsForm: React.FC = () => {
               <ErrorMessage name="gender" />
             </div>
             <div>
-              <Field type="number" name="weight" placeholder="Weight" />
+              <Field
+                type="number"
+                name="weight"
+                placeholder="Weight in Grams"
+              />
               <ErrorMessage name="weight" />
             </div>
             <div>
