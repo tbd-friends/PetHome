@@ -1,19 +1,37 @@
 import React, { useReducer } from "react";
-import { PetHomeProviderProps, PetHomeState } from "./types";
-import { PetHomeActionTypes } from "../reducers/types";
+import { IPetHomeContext, IPetHomeState } from './types';
+import { petHomeReducer } from '../reducers/petHomeReducer';
+import { applyPetHomeMiddleware } from '../petHome/applyPetHomeMiddleware';
+import { usePetHomeAction } from '../petHome/usePetHomeAction';
 
-export const PetHomeContext = React.createContext<
-  [PetHomeState, React.Dispatch<PetHomeActionTypes>] | []
->([]);
+const initialState: IPetHomeState = {
+    animals: {
+        loading: false,
+        data: [],
+        errors: []
+    }
+};
 
-export const PetHomeProvider: React.FC<PetHomeProviderProps> = ({
-  reducer,
-  initialState,
-  children
+export const PetHomeContext = React.createContext<IPetHomeContext>({
+    pethomeState: initialState,
+    actions: {
+        animals: {
+            registerAnimal: (animal: any) => { }
+        }
+    }
+});
+
+export const PetHomeProvider: React.FC = ({
+    children
 }) => {
-  return (
-    <PetHomeContext.Provider value={useReducer(reducer, initialState)}>
-      {children}
-    </PetHomeContext.Provider>
-  );
+    const [pethomeState, dispatchEx] = useReducer(petHomeReducer, initialState);
+    const dispatch = applyPetHomeMiddleware(dispatchEx);
+
+    const actions = usePetHomeAction(dispatch);
+
+    return (
+        <PetHomeContext.Provider value={{ pethomeState, dispatch, actions }}>
+            {children}
+        </PetHomeContext.Provider>
+    );
 };

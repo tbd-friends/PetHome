@@ -17,7 +17,7 @@ export const RegisterPetsPage: React.FC = () => {
   const classes = useStyles();
 
   const handleSubmit = (values: any) => {
-    //petsContext.actions.register(values);
+    petsContext.actions.animals.registerAnimal(values);
   };
 
   return (

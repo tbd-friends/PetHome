@@ -13,23 +13,23 @@ import { RegisterPetsPage } from "./pages/pet/RegisterPetsPage";
 import { HomePage } from "./pages/home/HomePage";
 
 export const AdminArea: React.FC = () => {
-  const layoutConfig = createLayoutConfig();
-  return (
-    <PetHomeProvider reducer={petHomeReducer} initialState={{}}>
-      <Layout initialState={layoutConfig}>
-        <Header title="PetHome" />
-        <Sidebar links={[]} />
-        <Content>
-          <Route path="/admin" exact component={HomePage} />
-          <Route path="/admin/pets" exact component={PetsPage} />
-          <Route
-            path="/admin/pets/register"
-            component={RegisterPetsPage}
-            exact
-          />
-        </Content>
-        <Footer />
-      </Layout>
-    </PetHomeProvider>
-  );
+    const layoutConfig = createLayoutConfig();
+    return (
+        <PetHomeProvider>
+            <Layout initialState={layoutConfig}>
+                <Header title="PetHome" />
+                <Sidebar links={[]} />
+                <Content>
+                    <Route path="/admin" exact component={HomePage} />
+                    <Route path="/admin/pets" exact component={PetsPage} />
+                    <Route
+                        path="/admin/pets/register"
+                        component={RegisterPetsPage}
+                        exact
+                    />
+                </Content>
+                <Footer />
+            </Layout>
+        </PetHomeProvider>
+    );
 };

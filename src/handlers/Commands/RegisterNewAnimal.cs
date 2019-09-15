@@ -1,8 +1,9 @@
+using System;
 using MediatR;
 
 namespace PetHome.Handlers.Commands
 {
-    public class RegisterNewAnimal : IRequest
+    public class RegisterNewAnimal : IRequest<Guid>
     {
         public string Species { get; set; }
         public string Color { get; set; }
