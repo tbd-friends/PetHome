@@ -16,7 +16,8 @@ Once you've cloned the repository
 - Navigate to the view project (i.e. c:\dev\pethome\src\view)
 - After first checkout
 ```
-> dotnet ef database update --context PetHomeContext
+> dotnet ef migrations add SeedInitialUser --context IdentityContext
+> dotnet ef database update --context IdentityContext
 > dotnet ef database update --context ApplicationContext
 ```
 
@@ -33,6 +34,7 @@ When the database is ready
 - Open Package Manager Console
 
 ```
+> Add-Migration SeedInitialuser -Context IdentityContext
 > Update-Database -Context IdentityContet
 > Update-Database -Context ApplicationContext
 ```
