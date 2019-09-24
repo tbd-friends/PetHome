@@ -18,13 +18,13 @@ namespace PetHome.Handlers
             _uow = uow;
         }
 
-        public  Task<Guid> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
+        public Task<Guid> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
         {
             if (!HasMinimumRequiredAnimalInformation(request))
             {
                 throw new ArgumentException();
             }
-            
+
             var model = new Animal
             {
                 Species = request.Species,
@@ -33,7 +33,7 @@ namespace PetHome.Handlers
                 Gender = request.Gender,
                 Weight = request.Weight,
                 Entered = DateTime.UtcNow,
-                Tag = request.TagNumber,    
+                Tag = request.TagNumber,
                 Circumstances = request.Circumstances,
                 VetRequired = request.VetRequired,
                 Notes = request.Notes
