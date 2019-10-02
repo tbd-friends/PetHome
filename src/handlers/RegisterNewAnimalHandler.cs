@@ -9,7 +9,7 @@ using PetHome.Persistence.Repositories.Interfaces;
 
 namespace PetHome.Handlers
 {
-    public class RegisterNewAnimalHandler : IRequestHandler<RegisterNewAnimal>
+    public class RegisterNewAnimalHandler : IRequestHandler<RegisterNewAnimal, Guid>
     {
         private readonly IUnitOfWork _uow;
 
@@ -18,14 +18,14 @@ namespace PetHome.Handlers
             _uow = uow;
         }
 
-        public Task<Unit> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
+        public Task<Guid> Handle(RegisterNewAnimal request, CancellationToken cancellationToken)
         {
             if (!HasMinimumRequiredAnimalInformation(request))
             {
                 throw new ArgumentException();
             }
 
-            _uow.Animals.Add(new Animal
+            var model = new Animal
             {
                 Species = request.Species,
                 Color = request.Color,
@@ -37,11 +37,13 @@ namespace PetHome.Handlers
                 Circumstances = request.Circumstances,
                 VetRequired = request.VetRequired,
                 Notes = request.Notes
-            });
+            };
+
+            _uow.Animals.Add(model);
 
             _uow.Complete();
 
-            return Unit.Task;
+            return Task.FromResult(model.Id);
         }
 
         private bool HasMinimumRequiredAnimalInformation(RegisterNewAnimal request)

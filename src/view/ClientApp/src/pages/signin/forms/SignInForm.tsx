@@ -6,12 +6,12 @@ export interface SignInFormValues {
   password: string;
 }
 
-interface SingInFormProps {
+interface SignInFormProps {
   initialValues: SignInFormValues;
   onSignIn: (value: SignInFormValues) => void;
 }
 
-export const SignInForm: React.FC<SingInFormProps> = ({
+export const SignInForm: React.FC<SignInFormProps> = ({
   initialValues,
   onSignIn
 }) => {

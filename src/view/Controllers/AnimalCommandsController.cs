@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PetHome.Handlers.Commands;
@@ -18,9 +19,9 @@ namespace PetHome.View.Controllers
         }
 
         [HttpPost("register")]
-        public async Task Register([FromBody] RegisterAnimalInputModel model)
+        public async Task<Guid> Register([FromBody] RegisterAnimalInputModel model)
         {
-            await _mediator.Send(new RegisterNewAnimal
+            var id = await _mediator.Send(new RegisterNewAnimal
             {
                 Species = model.Species,
                 Gender = model.Gender,
@@ -32,6 +33,8 @@ namespace PetHome.View.Controllers
                 VetRequired = model.VetRequired,
                 Notes = model.Notes,
             });
+
+            return id;
         }
     }
 }
