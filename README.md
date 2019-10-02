@@ -49,8 +49,6 @@ Cleaning your `node_modules` directory is probably a good idea. From the command
 
   Start Debugging
 
-CI should be enabled in AZ Pipelines
-
 #### global.json
 
 When not using Visual Studio, you may need to cap the version of .NET Core. Use a global.json file to set it to 2.2.300.
