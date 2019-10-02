@@ -26,6 +26,16 @@ When the database is ready
 > dotnet build
 > dotnet run
 ```
+
+## When checking out a branch
+
+Cleaning your `node_modules` directory is probably a good idea. From the command line;
+
+```
+> yarn clean
+> yarn install
+```
+
   
 ## In Visual Studio Code 
 
