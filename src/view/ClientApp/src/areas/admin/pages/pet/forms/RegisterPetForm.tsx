@@ -56,7 +56,7 @@ export const RegisterPetsForm: React.FC<RegisterPetProps> = ({
 
           onSubmit(values);
         }}
-        render={({ handleSubmit }) => (
+        render={({ handleSubmit, handleReset }) => (
           <form onSubmit={handleSubmit}>
             <div>
               <Field type="text" name="species" placeholder="Species" />
@@ -99,6 +99,9 @@ export const RegisterPetsForm: React.FC<RegisterPetProps> = ({
             </div>
             <Field type="text" name="notes" placeholder="Add Notes" />
             <button type="submit">Register</button>
+            <button type="reset" onClick={handleReset}>
+              Reset
+            </button>
           </form>
         )}
       />

@@ -1,8 +1,8 @@
 import React from "react";
 import { usePets } from "../../hooks/pets/usePets";
-import { RegisterPetsForm } from "./forms/RegisterPetForm";
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
 import { returnStatement } from "@babel/types";
+import { RegisterPetsForm } from "./forms/RegisterPetForm";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
