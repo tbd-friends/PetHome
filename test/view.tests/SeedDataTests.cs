@@ -93,12 +93,12 @@ namespace view.tests
 
             SeedData.EnsureDataSeeded(serviceProvider);
 
-            migrationRunner.Verify(v => v.Migrate(It.IsAny<IdentityContext>()));
-            migrationRunner.Verify(v => v.Migrate(It.IsAny<ApplicationContext>()));
+            migrationRunner.Verify(v => v.Migrate(It.IsAny<IdentityContext>()), Times.Once());
+            migrationRunner.Verify(v => v.Migrate(It.IsAny<ApplicationContext>()), Times.Once());
         }
 
         [Fact]
-        public void Creates_User_if_not_exist()
+        public void Creates_User_if_none_exists()
         {
             var (serviceProvider, _, userManager) = MockServiceProviderWithoutUser(IdentityResult.Success);
 
