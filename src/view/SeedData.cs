@@ -10,42 +10,30 @@ using PetHome.View.Data.Models;
 
 namespace PetHome.View
 {
-    public class SeedData
+    public interface IMigrationRunner
     {
-        public static void EnsureDataSeeded(IConfiguration config)
-        {
-            var connectionString = config.GetConnectionString("DefaultConnection");
-            var services = SetupDI(connectionString);
+        void Migrate(DbContext context);
+    }
 
-            using (var serviceProvider = services.BuildServiceProvider())
-            {
-                RunMigrations(serviceProvider);
-                SeedIdentity(serviceProvider, config);
-            }
+    public class MigrationRunner : IMigrationRunner
+    {
+        public void Migrate(DbContext context)
+        {
+            context.Database.Migrate();
+        }
+    }
+
+    public static class SeedData
+    {
+        public static void EnsureDataSeeded(IServiceProvider serviceProvider)
+        {
+            var config = serviceProvider.GetRequiredService<IConfiguration>();
+
+            RunMigrations(serviceProvider);
+            SeedIdentity(serviceProvider, config);
         }
 
-        private static IServiceCollection SetupDI(string connectionString)
-        {
-            var services = new ServiceCollection();
-
-            services.AddDbContext<ApplicationContext>(options =>
-            {
-                options.UseSqlServer(connectionString);
-            });
-
-            services.AddDbContext<IdentityContext>(options =>
-            {
-                options.UseSqlServer(connectionString);
-            });
-
-            services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityContext>()
-                .AddDefaultTokenProviders();
-
-            return services;
-        }
-
-        private static void RunMigrations(ServiceProvider serviceProvider)
+        private static void RunMigrations(IServiceProvider serviceProvider)
         {
             Console.WriteLine("Running Migrations...");
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -53,12 +41,13 @@ namespace PetHome.View
                 var identityContext = scope.ServiceProvider.GetService<IdentityContext>();
                 var applicationContext = scope.ServiceProvider.GetService<ApplicationContext>();
 
-                identityContext.Database.Migrate();
-                applicationContext.Database.Migrate();
+                var migrationRunner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+                migrationRunner.Migrate(identityContext);
+                migrationRunner.Migrate(applicationContext);
             }
         }
 
-        private static void SeedIdentity(ServiceProvider serviceProvider, IConfiguration config)
+        private static void SeedIdentity(IServiceProvider serviceProvider, IConfiguration config)
         {
             Console.WriteLine("Seeding Identity...");
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())

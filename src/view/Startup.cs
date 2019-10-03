@@ -63,6 +63,7 @@ namespace PetHome.View
       });
 
       services.AddTransient<IUnitOfWork, UnitOfWork>();
+      services.AddTransient<IMigrationRunner, MigrationRunner>();
 
       services.AddMediatR(Assembly.Load("PetHome.Handlers"));
 

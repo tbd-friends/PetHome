@@ -17,8 +17,7 @@ namespace PetHome.View
 
             if (shouldSeed)
             {
-                var config = host.Services.GetRequiredService<IConfiguration>();
-                SeedData.EnsureDataSeeded(config);
+                SeedData.EnsureDataSeeded(host.Services);
                 return;
             }
 
