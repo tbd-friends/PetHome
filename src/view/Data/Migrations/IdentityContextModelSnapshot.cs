@@ -15,7 +15,7 @@ namespace PetHome.View.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -178,24 +178,6 @@ namespace PetHome.View.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7afb4539-8ab2-44d1-a881-2dbc8fdd7ab8",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d406bb9-460b-44ad-8bf0-513908f095f6",
-                            Email = "manager@pethome.app",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "MANAGER@PETHOME.APP",
-                            NormalizedUserName = "MANAGER@PETHOME.APP",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIVDPe+D2k9DYm8aaZlygE1ycvP2BRWCG5m/08oxAWV/yXRq84CDZIl+GZQBVp7rTA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "60032225-177c-4d2c-bfad-f31b1988dad2",
-                            TwoFactorEnabled = false,
-                            UserName = "manager@pethome.app"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
