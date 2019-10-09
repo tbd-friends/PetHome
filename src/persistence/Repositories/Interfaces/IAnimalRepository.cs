@@ -1,4 +1,5 @@
-﻿using PetHome.Persistence.Models;
+﻿using System.Collections.Generic;
+using PetHome.Persistence.Models;
 
 namespace PetHome.Persistence.Repositories.Interfaces
 {
