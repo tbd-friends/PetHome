@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\viewmodels\viewmodels.csproj" />
     <ProjectReference Include="..\persistence\persistence.csproj" />
+    <ProjectReference Include="..\viewmodels\viewmodels.csproj" />
   </ItemGroup>
 
 </Project>
