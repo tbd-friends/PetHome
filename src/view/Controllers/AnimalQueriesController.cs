@@ -21,7 +21,7 @@ namespace view.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<IEnumerable<AnimalSummaryViewModel>> Get()
+        public async Task<IEnumerable<AnimalSummary>> Get()
         {
             return await _mediator.Send(new GetAnimals());
         }

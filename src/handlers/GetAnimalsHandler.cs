@@ -11,7 +11,7 @@ using viewmodels;
 
 namespace PetHome.Handlers
 {
-    public class GetAnimalsHandler : IRequestHandler<GetAnimals, IEnumerable<AnimalSummaryViewModel>>
+    public class GetAnimalsHandler : IRequestHandler<GetAnimals, IEnumerable<AnimalSummary>>
     {
         private readonly IUnitOfWork _UnitOfWork;
 
@@ -19,10 +19,10 @@ namespace PetHome.Handlers
         {
             _UnitOfWork = unitOfWork;
         }
-        public async Task<IEnumerable<AnimalSummaryViewModel>> Handle(GetAnimals request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<AnimalSummary>> Handle(GetAnimals request, CancellationToken cancellationToken)
         {
             return await Task.FromResult(
-                _UnitOfWork.Animals.GetAll().Select(c => new AnimalSummaryViewModel 
+                _UnitOfWork.Animals.GetAll().Select(c => new AnimalSummary 
                 {
                     Id = c.Id,
                     Species = c.Species,

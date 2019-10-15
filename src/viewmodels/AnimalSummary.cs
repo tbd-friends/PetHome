@@ -4,7 +4,7 @@ using System.Text;
 
 namespace viewmodels
 {
-    public class AnimalSummaryViewModel
+    public class AnimalSummary
     {
         public Guid Id { get; set; }
         public string Species { get; set; }
