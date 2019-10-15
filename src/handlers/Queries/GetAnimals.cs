@@ -6,7 +6,7 @@ using viewmodels;
 
 namespace PetHome.Handlers.Queries
 {
-    public class GetAnimals: IRequest<IEnumerable<AnimalListViewModel>>
+    public class GetAnimals: IRequest<IEnumerable<AnimalSummaryViewModel>>
     {
 
     }
