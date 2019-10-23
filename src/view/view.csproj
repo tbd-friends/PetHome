@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\handlers\handlers.csproj" />
     <ProjectReference Include="..\persistence\persistence.csproj" />
+    <ProjectReference Include="..\viewmodels\viewmodels.csproj" />
   </ItemGroup>
 
   <ItemGroup>
