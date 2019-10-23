@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PetHome.Persistence.Repositories.Interfaces;
 
 namespace PetHome.Persistence.Repositories
@@ -16,6 +18,11 @@ namespace PetHome.Persistence.Repositories
         public void Add(T entity)
         {
             Context.Set<T>().Add(entity);
+        }
+
+        public IEnumerable<T> GetAll()
+        {
+            return Context.Set<T>().ToList();
         }
     }
 }

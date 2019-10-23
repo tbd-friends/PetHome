@@ -17,7 +17,8 @@ export const App: React.FC = () => {
       <Switch>
         <Route path="/signin" exact component={SignInPage} />
         <Route path="/" exact component={HomePage} />
-        <PrivateRoute path="/admin" component={AdminArea} />
+        <Route path="/admin" component={AdminArea} />
+        {/*<PrivateRoute path="/admin" component={AdminArea} />*/}
         <Route component={NotFoundPage} />
       </Switch>
     </ThemeProvider>

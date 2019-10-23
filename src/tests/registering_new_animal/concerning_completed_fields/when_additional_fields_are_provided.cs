@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using PetHome.Handlers;
@@ -17,6 +19,7 @@ namespace tests.registering_new_animal.concerning_completed_fields
         private Mock<IUnitOfWork> UnitOfWork;
         private Mock<IAnimalRepository> AnimalsRepository;
         private Animal Result;
+        private Task<Guid> ResultId;
         private const string TagNumber = "A123";
         private const string Circumstances = "Found Somewhere";
         private const bool VetRequired = true;
@@ -27,19 +30,26 @@ namespace tests.registering_new_animal.concerning_completed_fields
         private const string Species = "Is Valid";
         private const string Gender = "Is Valid";
         private const int Weight = 1;
+        private Guid AnimalId = new Guid("B5C479A8-A7C9-4C16-866D-BC3F9A82B968");
 
         public when_additional_fields_are_provided()
         {
             UnitOfWork = new Mock<IUnitOfWork>();
             AnimalsRepository = new Mock<IAnimalRepository>();
 
-            AnimalsRepository.Setup(ar => ar.Add(It.IsAny<Animal>())).Callback((Animal a) => Result = a);
+            AnimalsRepository.Setup(ar => ar.Add(It.IsAny<Animal>()))
+                .Callback((Animal a) =>
+                {
+                    Result = a;
+
+                    Result.Id = AnimalId;
+                });
 
             UnitOfWork.Setup(uow => uow.Animals).Returns(AnimalsRepository.Object);
 
             Subject = new RegisterNewAnimalHandler(UnitOfWork.Object);
 
-            Subject.Handle(new RegisterNewAnimal
+            ResultId = Subject.Handle(new RegisterNewAnimal
             {
                 Species = Species,
                 Color = Color,
@@ -82,6 +92,12 @@ namespace tests.registering_new_animal.concerning_completed_fields
         public void notes_is_set()
         {
             Result.Notes.Should().Be(Notes);
+        }
+
+        [Fact]
+        public async Task handler_returns_id_of_animal()
+        {
+            (await ResultId).Should().Be(AnimalId);
         }
     }
 }

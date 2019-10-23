@@ -16,8 +16,7 @@ Once you've cloned the repository
 - Navigate to the view project (i.e. c:\dev\pethome\src\view)
 - After first checkout
 ```
-> dotnet ef database update --context PetHomeContext
-> dotnet ef database update --context ApplicationContext
+> dotnet run /seed
 ```
 
 When the database is ready
@@ -26,6 +25,16 @@ When the database is ready
 > dotnet build
 > dotnet run
 ```
+
+## When checking out a branch
+
+Cleaning your `node_modules` directory is probably a good idea. From the command line;
+
+```
+> yarn clean
+> yarn install
+```
+
   
 ## In Visual Studio Code 
 

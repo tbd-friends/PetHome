@@ -42,10 +42,6 @@ namespace PetHome.View
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddOpenApiDocument(cfg =>
-            {
-            });
-
             var signingKey = Configuration["TokenSecret"];
 
             services.AddAuthentication(options =>
@@ -66,7 +62,12 @@ namespace PetHome.View
                 };
             });
 
+            services.AddOpenApiDocument(cfg =>
+            {
+            });
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IMigrationRunner, MigrationRunner>();
 
             services.AddMediatR(Assembly.Load("PetHome.Handlers"));
 
@@ -79,7 +80,6 @@ namespace PetHome.View
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

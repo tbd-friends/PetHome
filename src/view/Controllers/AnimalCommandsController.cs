@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,20 +11,20 @@ namespace PetHome.View.Controllers
 {
     [Route("animal")]
     [ApiController]
-    public class AnimalsController : ControllerBase
+    public class AnimalCommandsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public AnimalsController(IMediator mediator)
+        public AnimalCommandsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task RegisterNewAnimal([FromBody] RegisterAnimalInputModel model)
+        public async Task<Guid> RegisterNewAnimal([FromBody] RegisterAnimalInputModel model)
         {
-            await _mediator.Send(new RegisterNewAnimal
+            var id = await _mediator.Send(new RegisterNewAnimal
             {
                 Species = model.Species,
                 Gender = model.Gender,
@@ -35,6 +36,8 @@ namespace PetHome.View.Controllers
                 VetRequired = model.VetRequired,
                 Notes = model.Notes,
             });
+
+            return id;
         }
     }
 }

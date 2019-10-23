@@ -1,8 +1,11 @@
-﻿namespace PetHome.Persistence.Repositories.Interfaces
+﻿using System.Collections.Generic;
+
+namespace PetHome.Persistence.Repositories.Interfaces
 {
-    public interface IRepository<in T>
+    public interface IRepository<T>
         where T : class
     {
         void Add(T entity);
+        IEnumerable<T> GetAll();
     }
 }
