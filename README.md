@@ -16,8 +16,7 @@ Once you've cloned the repository
 - Navigate to the view project (i.e. c:\dev\pethome\src\view)
 - After first checkout
 ```
-> dotnet ef database update --context PetHomeContext
-> dotnet ef database update --context ApplicationContext
+> dotnet run /seed
 ```
 
 When the database is ready
