@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PetHome.View</name>
+    </assembly>
+    <members>
+        <member name="M:PetHome.View.Controllers.AuthController.Login(PetHome.View.Controllers.LoginData)">
+            <summary>
+            Login
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetHome.View.Controllers.AuthController.Register(PetHome.View.Controllers.LoginData)">
+            <summary>
+            Register
+            </summary>
+            <param name="register"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

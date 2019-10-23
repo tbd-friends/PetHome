@@ -20,6 +20,7 @@ namespace view.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet]
         public async Task<IEnumerable<AnimalSummary>> Get()
         {

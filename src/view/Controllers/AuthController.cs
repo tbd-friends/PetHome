@@ -13,15 +13,6 @@ using Microsoft.IdentityModel.Tokens;
 using PetHome.View.Data.Models;
 
 
-public class LoginData
-{
-    [Required]
-    [EmailAddress]
-    public string Email { get; set; }
-    [Required]
-    public string Password { get; set; }
-}
-
 namespace PetHome.View.Controllers
 {
     [Route("api/[controller]")]
@@ -38,6 +29,11 @@ namespace PetHome.View.Controllers
             _config = config;
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginData login)
         {
@@ -58,6 +54,11 @@ namespace PetHome.View.Controllers
         }
 
 
+        /// <summary>
+        /// Register
+        /// </summary>
+        /// <param name="register"></param>
+        /// <returns></returns>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] LoginData register)
         {
@@ -95,5 +96,15 @@ namespace PetHome.View.Controllers
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
             return (token);
         }
+    }
+
+
+    public class LoginData
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
     }
 }

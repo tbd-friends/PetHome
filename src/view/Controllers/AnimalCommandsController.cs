@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NSwag;
 using PetHome.Handlers.Commands;
 using PetHome.View.InputModels;
 
@@ -19,7 +21,8 @@ namespace PetHome.View.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<Guid> Register([FromBody] RegisterAnimalInputModel model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<Guid> RegisterNewAnimal([FromBody] RegisterAnimalInputModel model)
         {
             var id = await _mediator.Send(new RegisterNewAnimal
             {
