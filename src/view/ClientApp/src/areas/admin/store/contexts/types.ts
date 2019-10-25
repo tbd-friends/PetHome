@@ -1,3 +1,5 @@
+import { IAnimalSummary } from "../../../../utils/pethome.api";
+
 //port { PetHomeActionTypes } from "../reducers/types";
 
 export interface IPetHomeState {
@@ -9,6 +11,7 @@ export interface IPetHomeContext {
     dispatch?: React.Dispatch<PetHomeActionTypes>;
     actions: {
         animals: {
+            getAnimalsAction: () => void;
             registerAnimal: (animal: any) => void;
         }
     }
@@ -23,7 +26,10 @@ export interface AnimalState {
 export enum PetHomeActions {
     REGISTER_ANIMAL = "@@animal/REGISTER_ANIMAL",
     REGISTER_ANIMAL_SUCCESS = "@@animal/REGISTER_ANIMAL_SUCCESS",
-    REGISTER_ANIMAL_FAILED = "@@animal/REGISTER_ANIMAL_FAILED"
+    REGISTER_ANIMAL_FAILED = "@@animal/REGISTER_ANIMAL_FAILED",
+    GET_ANIMALS = '@@animal/GET_ANIMALS',
+    GET_ANIMALS_SUCCESS = '@@animal/GET_ANIMALS_SUCCESS',
+    GET_ANIMALS_FAILED = "@@animal/GET_ANIMALS_FAILED"
 }
 
 export interface AnimalRegisterAction {
@@ -47,6 +53,27 @@ export interface AnimalRegisterFailedAction {
     }
 }
 
+export interface GetAnimalsAction {
+    type: typeof PetHomeActions.GET_ANIMALS,
+}
+
+export interface GetAnimalsSuccessAction {
+    type: typeof PetHomeActions.GET_ANIMALS_SUCCESS,
+    payload: {
+        animals: IAnimalSummary[]
+    }
+}
+
+export interface GetAnimalsFailedAction {
+    type: typeof PetHomeActions.GET_ANIMALS_FAILED,
+    payload: {
+        errors: any
+    }
+}
+
 export type PetHomeActionTypes = AnimalRegisterAction |
     AnimalRegisterSuccessAction |
-    AnimalRegisterFailedAction;
+    AnimalRegisterFailedAction |
+    GetAnimalsAction | 
+    GetAnimalsSuccessAction |
+    GetAnimalsFailedAction;

@@ -11,10 +11,19 @@ const registerAnimalAction = (
         }
     });
 
+const getAnimalsAction = (dispatch: React.Dispatch<PetHomeActionTypes>) => {
+    dispatch({
+        type: PetHomeActions.GET_ANIMALS
+    });
+}
+    
+
+
 export const usePetHomeAction = (
     dispatch: React.Dispatch<PetHomeActionTypes>
 ) => ({
     animals: {
+        getAnimalsAction: () => getAnimalsAction(dispatch),
         registerAnimal: (animal: any) => registerAnimalAction(animal, dispatch)
     }
 });
