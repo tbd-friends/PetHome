@@ -24,7 +24,6 @@ namespace view.Controllers
         [HttpGet]
         public async Task<IEnumerable<AnimalSummary>> Get()
         {
-            await Task.Delay(5000);
             return await _mediator.Send(new GetAnimals());
         }
 
