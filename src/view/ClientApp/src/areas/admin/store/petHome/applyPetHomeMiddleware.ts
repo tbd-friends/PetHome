@@ -1,5 +1,6 @@
 import React from 'react';
 import { PetHomeActionTypes, PetHomeActions } from '../contexts/types';
+import { AnimalQueriesClient } from '../../../../utils/pethome.api';
 
 export const applyPetHomeMiddleware = (
     dispatch: React.Dispatch<PetHomeActionTypes>
@@ -39,6 +40,28 @@ export const applyPetHomeMiddleware = (
                     });
             }
             break;
+            case PetHomeActions.GET_ANIMALS:
+                {
+                    const apiClient = new AnimalQueriesClient();
+                    apiClient.get().then(
+                        animals => {
+                            dispatch({
+                                type: PetHomeActions.GET_ANIMALS_SUCCESS,
+                                payload: {
+                                    animals
+                                }
+                            })
+                        }
+                    ).catch(error => {
+                        dispatch({
+                            type: PetHomeActions.GET_ANIMALS_FAILED,
+                            payload: {
+                                errors: error
+                            }
+                        })
+                    })
+                }
+                break;
         default:
             return null;
     }
