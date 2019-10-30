@@ -19,14 +19,3 @@ export const PetsListItem: React.FC<PetsListItemProps> = ({ animal }) => {
     </tr>
   );
 };
-
-/*  "species": "string",
-    "entered": "2019-10-25T01:01:11.142Z",
-    "color": "string",
-    "breed": "string",
-    "gender": "string",
-    "weight": 0,
-    "tag": "string",
-    "circumstances": "string",
-    "vetRequired": true
-    */
