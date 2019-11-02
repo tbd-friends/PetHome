@@ -1,10 +1,10 @@
 import React from "react";
 import { usePets } from "../../../hooks/pets/usePets";
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
-import { returnStatement } from "@babel/types";
 import { RegisterPetsForm } from "./forms/RegisterPetForm";
+import { registerAnimalAction } from "../../../store/petHome/usePetHomeAction";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1
@@ -13,11 +13,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const RegisterPetsPage: React.FC = () => {
-  const petsContext = usePets();
+  const { dispatch } = usePets();
   const classes = useStyles();
 
   const handleSubmit = (values: any) => {
-    petsContext.actions.animals.registerAnimal(values);
+    registerAnimalAction(values, dispatch);
   };
 
   return (

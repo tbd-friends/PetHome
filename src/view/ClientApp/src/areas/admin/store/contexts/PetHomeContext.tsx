@@ -1,8 +1,6 @@
 import React, { useReducer } from "react";
 import { IPetHomeContext, IPetHomeState } from "./types";
 import { petHomeReducer } from "../reducers/petHomeReducer";
-import { applyPetHomeMiddleware } from "../petHome/applyPetHomeMiddleware";
-import { usePetHomeAction } from "../petHome/usePetHomeAction";
 
 const initialState: IPetHomeState = {
   animals: {
@@ -13,23 +11,15 @@ const initialState: IPetHomeState = {
 };
 
 export const PetHomeContext = React.createContext<IPetHomeContext>({
-  pethomeState: initialState,
-  actions: {
-    animals: {
-      getAnimalsAction: () => {},
-      registerAnimal: (animal: any) => {}
-    }
-  }
+  state: initialState,
+  dispatch: action => {}
 });
 
 export const PetHomeProvider: React.FC = ({ children }) => {
-  const [pethomeState, dispatchEx] = useReducer(petHomeReducer, initialState);
-  const dispatch = applyPetHomeMiddleware(dispatchEx);
-
-  const actions = usePetHomeAction(dispatch);
+  const [state, dispatch] = useReducer(petHomeReducer, initialState);
 
   return (
-    <PetHomeContext.Provider value={{ pethomeState, dispatch, actions }}>
+    <PetHomeContext.Provider value={{ state, dispatch }}>
       {children}
     </PetHomeContext.Provider>
   );

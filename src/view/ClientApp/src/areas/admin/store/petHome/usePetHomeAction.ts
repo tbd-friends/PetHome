@@ -1,29 +1,72 @@
-import React from 'react';
+import React from "react";
 import { PetHomeActionTypes, PetHomeActions } from "../contexts/types";
+import { AnimalQueriesClient } from "../../../../utils/pethome.api";
 
-const registerAnimalAction = (
-    animal: any,
-    dispatch: React.Dispatch<PetHomeActionTypes>) =>
-    dispatch({
-        type: PetHomeActions.REGISTER_ANIMAL,
-        payload: {
-            animal
-        }
-    });
-
-const getAnimalsAction = (dispatch: React.Dispatch<PetHomeActionTypes>) => {
-    dispatch({
-        type: PetHomeActions.GET_ANIMALS
-    });
-}
-    
-
-
-export const usePetHomeAction = (
-    dispatch: React.Dispatch<PetHomeActionTypes>
-) => ({
-    animals: {
-        getAnimalsAction: () => getAnimalsAction(dispatch),
-        registerAnimal: (animal: any) => registerAnimalAction(animal, dispatch)
+export const registerAnimalAction = (
+  animal: any,
+  dispatch: React.Dispatch<PetHomeActionTypes>
+) => {
+  dispatch({
+    type: PetHomeActions.REGISTER_ANIMAL,
+    payload: {
+      animal
     }
-});
+  });
+  fetch("/animal/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(animal)
+  })
+    .then(response => {
+      if (response.status === 200) {
+        return response.text();
+      }
+      throw "Invalid Something";
+    })
+    .then((data: string) => {
+      dispatch({
+        type: PetHomeActions.REGISTER_ANIMAL_SUCCESS,
+        payload: {
+          animal: { ...animal, id: data }
+        }
+      });
+    })
+    .catch((error: any) => {
+      dispatch({
+        type: PetHomeActions.REGISTER_ANIMAL_FAILED,
+        payload: {
+          errors: error
+        }
+      });
+    });
+};
+
+export const getAnimalsAction = (
+  dispatch: React.Dispatch<PetHomeActionTypes>
+) => {
+  dispatch({
+    type: PetHomeActions.GET_ANIMALS
+  });
+
+  const apiClient = new AnimalQueriesClient();
+  apiClient
+    .get()
+    .then(animals => {
+      dispatch({
+        type: PetHomeActions.GET_ANIMALS_SUCCESS,
+        payload: {
+          animals
+        }
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: PetHomeActions.GET_ANIMALS_FAILED,
+        payload: {
+          errors: error
+        }
+      });
+    });
+};
