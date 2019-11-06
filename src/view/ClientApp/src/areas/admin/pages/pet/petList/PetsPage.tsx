@@ -2,6 +2,7 @@ import React from "react";
 import { Theme, createStyles, makeStyles } from "@material-ui/core";
 import { usePets } from "../../../hooks/pets/usePets";
 import { PetsList } from "./list/PetsList";
+import { getAnimalsAction } from "../../../store/petHome/usePetHomeAction";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,22 +13,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const PetsPage: React.FC = () => {
-  const petsContext = usePets();
+  const { state, dispatch } = usePets();
   const classes = useStyles();
 
-  const getAnimalsAction = petsContext.actions.animals.getAnimalsAction;
-
   React.useEffect(() => {
-    getAnimalsAction();
-  }, []);
+    getAnimalsAction(dispatch);
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>
       <h1>Pets List</h1>
-      {petsContext.pethomeState.animals.loading ? (
+      {state.animals.loading ? (
         "Loading..."
       ) : (
-        <PetsList animals={petsContext.pethomeState.animals.data} />
+        <PetsList animals={state.animals.data} />
       )}
     </div>
   );

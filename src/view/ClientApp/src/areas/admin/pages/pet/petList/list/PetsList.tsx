@@ -16,14 +16,16 @@ export const PetsList: React.FC<PetsListProps> = ({ animals }) => {
   return (
     <table>
       <thead>
-        <td>Species</td>
-        <td>Color</td>
-        <td>Breed</td>
-        <td>Gender</td>
-        <td>Weight</td>
-        <td>Tag</td>
-        <td>Circumstances</td>
-        <td>Vet Required</td>
+        <tr>
+          <td>Species</td>
+          <td>Color</td>
+          <td>Breed</td>
+          <td>Gender</td>
+          <td>Weight</td>
+          <td>Tag</td>
+          <td>Circumstances</td>
+          <td>Vet Required</td>
+        </tr>
       </thead>
       <tbody>{renderAnimals(animals)}</tbody>
     </table>
