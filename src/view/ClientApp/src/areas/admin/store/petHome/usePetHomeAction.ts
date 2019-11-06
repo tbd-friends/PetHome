@@ -49,8 +49,7 @@ export const getAnimalsAction = (
   dispatch({
     type: PetHomeActions.GET_ANIMALS
   });
-  console.log(process.env.REACT_APP_BASE_URL);
-  const baseUrl = process.env.REACT_APP_BASE_URL || "https://localhsot:5001";
+  const baseUrl = process.env.REACT_APP_BASE_URL || "https://localhost:5001";
   const apiClient = new AnimalQueriesClient(baseUrl);
   apiClient
     .get()
