@@ -9,6 +9,7 @@ import { Content } from "./components/content/Content";
 import { Footer } from "./components/footer/Footer";
 import { Route } from "react-router";
 import { PetsPage } from "./pages/pet/petList/PetsPage";
+import { DetailPage } from "./pages/pet/detail/DetailPage";
 import { RegisterPetsPage } from "./pages/pet/registerPet/RegisterPetsPage";
 import { HomePage } from "./pages/home/HomePage";
 
@@ -27,6 +28,7 @@ export const AdminArea: React.FC = () => {
             component={RegisterPetsPage}
             exact
           />
+          <Route path="/admin/pets/detail/:id" component={DetailPage} />
         </Content>
         <Footer />
       </Layout>

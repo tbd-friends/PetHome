@@ -70,3 +70,25 @@ export const getAnimalsAction = (
       });
     });
 };
+
+export const getAnimalAction = (
+  dispatch: React.Dispatch<PetHomeActionTypes>,
+  id: string
+) => {
+  console.log('Dispatching Action');
+
+  dispatch({
+    type: PetHomeActions.GET_ANIMAL_DETAIL,
+    payload: {
+      id
+    }
+  });
+
+  // Server call, load animal, get details
+  dispatch({
+    type: PetHomeActions.GET_ANIMAL_DETAIL_SUCCESS,
+    payload: {
+      animal: { id: 'bob' }
+    }
+  })
+};

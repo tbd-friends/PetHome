@@ -53,14 +53,30 @@ export const petHomeReducer: React.Reducer<IPetHomeState, PetHomeActionTypes> = 
                 }
             }
         case PetHomeActions.GET_ANIMALS_FAILED:
-                return {
-                        ...state,
-                        animals: {
-                            ...state.animals,
-                            loading: false,
-                            errors: [action.payload.errors]
-                        }
-                    }       
+            return {
+                ...state,
+                animals: {
+                    ...state.animals,
+                    loading: false,
+                    errors: [action.payload.errors]
+                }
+            }
+        case PetHomeActions.GET_ANIMAL_DETAIL:
+            return {
+                ...state,
+                animals: {
+                    ...state.animals,
+                    loading: true
+                }
+            }
+        case PetHomeActions.GET_ANIMAL_DETAIL_SUCCESS:
+            return {
+                ...state,
+                animals: {
+                    ...state.animals,
+                    loading: false
+                }
+            }
         default:
             return state;
     }

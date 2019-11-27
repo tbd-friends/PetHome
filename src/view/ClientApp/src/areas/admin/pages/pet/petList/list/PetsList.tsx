@@ -25,6 +25,7 @@ export const PetsList: React.FC<PetsListProps> = ({ animals }) => {
           <td>Tag</td>
           <td>Circumstances</td>
           <td>Vet Required</td>
+          <td>Actions</td>
         </tr>
       </thead>
       <tbody>{renderAnimals(animals)}</tbody>
