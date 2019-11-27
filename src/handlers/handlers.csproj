@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>PetHome.Handlers</AssemblyName>
+    <RootNamespace>PetHome.Handlers</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\persistence\persistence.csproj" />
+    <ProjectReference Include="..\viewmodels\viewmodels.csproj" />
+  </ItemGroup>
+
+</Project>
