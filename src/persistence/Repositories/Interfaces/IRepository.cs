@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PetHome.Persistence.Repositories.Interfaces
 {
@@ -7,5 +8,7 @@ namespace PetHome.Persistence.Repositories.Interfaces
     {
         void Add(T entity);
         IEnumerable<T> GetAll();
+
+        T GetById(Guid id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PetHome.Persistence.Repositories.Interfaces;
@@ -23,6 +24,11 @@ namespace PetHome.Persistence.Repositories
         public IEnumerable<T> GetAll()
         {
             return Context.Set<T>().ToList();
+        }
+
+        public T GetById(Guid id)
+        {
+            return Context.Set<T>().Find(id);
         }
     }
 }

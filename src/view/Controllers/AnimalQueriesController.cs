@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PetHome.Handlers;
 using PetHome.Handlers.Queries;
 using viewmodels;
 
@@ -27,6 +26,11 @@ namespace view.Controllers
             return await _mediator.Send(new GetAnimals());
         }
 
+        [HttpGet("{id}")]
+        public async Task<AnimalDetails> Get(Guid id)
+        {
+            return await _mediator.Send(new GetAnimalById() { Id = id });
+        }
 
     }
 }
