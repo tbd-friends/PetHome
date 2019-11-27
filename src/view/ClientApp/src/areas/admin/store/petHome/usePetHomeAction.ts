@@ -52,7 +52,7 @@ export const getAnimalsAction = (
   const baseUrl = process.env.REACT_APP_BASE_URL || "https://localhost:5001";
   const apiClient = new AnimalQueriesClient(baseUrl);
   apiClient
-    .get()
+    .getAll()
     .then(animals => {
       dispatch({
         type: PetHomeActions.GET_ANIMALS_SUCCESS,
@@ -76,6 +76,8 @@ export const getAnimalAction = (
   id: string
 ) => {
   console.log('Dispatching Action');
+  const baseUrl = process.env.REACT_APP_BASE_URL || "https://localhost:5001";
+  const apiClient = new AnimalQueriesClient(baseUrl);
 
   dispatch({
     type: PetHomeActions.GET_ANIMAL_DETAIL,
@@ -84,11 +86,22 @@ export const getAnimalAction = (
     }
   });
 
-  // Server call, load animal, get details
-  dispatch({
-    type: PetHomeActions.GET_ANIMAL_DETAIL_SUCCESS,
-    payload: {
-      animal: { id: 'bob' }
-    }
-  })
+  apiClient
+    .get(id)
+    .then(animal => {
+      dispatch({
+        type: PetHomeActions.GET_ANIMAL_DETAIL_SUCCESS,
+        payload: {
+          animal
+        }
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: PetHomeActions.GET_ANIMALS_FAILED,
+        payload: {
+          errors: error
+        }
+      });
+    });
 };

@@ -24,10 +24,10 @@ export const DetailPage: React.FC<RouteChildrenProps<any>> = ({ match }) => {
     React.useEffect(() => {
         const animals = state.animals.data.filter((f: IAnimalSummary) => f.id === id);
 
-        if (animals.length === 0 || animals === null) {
-            getAnimalAction(dispatch, id);
-        } else {
+        if (animals.length > 0) {
             setAnimal(animals[0]);
+        } else {
+            getAnimalAction(dispatch, id);
         }
     }, [state, dispatch]);
 
