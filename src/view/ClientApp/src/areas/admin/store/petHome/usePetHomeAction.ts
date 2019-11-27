@@ -52,12 +52,47 @@ export const getAnimalsAction = (
   const baseUrl = process.env.REACT_APP_BASE_URL || "https://localhost:5001";
   const apiClient = new AnimalQueriesClient(baseUrl);
   apiClient
-    .get()
+    .getAll()
     .then(animals => {
       dispatch({
         type: PetHomeActions.GET_ANIMALS_SUCCESS,
         payload: {
           animals
+        }
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: PetHomeActions.GET_ANIMALS_FAILED,
+        payload: {
+          errors: error
+        }
+      });
+    });
+};
+
+export const getAnimalAction = (
+  dispatch: React.Dispatch<PetHomeActionTypes>,
+  id: string
+) => {
+  console.log('Dispatching Action');
+  const baseUrl = process.env.REACT_APP_BASE_URL || "https://localhost:5001";
+  const apiClient = new AnimalQueriesClient(baseUrl);
+
+  dispatch({
+    type: PetHomeActions.GET_ANIMAL_DETAIL,
+    payload: {
+      id
+    }
+  });
+
+  apiClient
+    .get(id)
+    .then(animal => {
+      dispatch({
+        type: PetHomeActions.GET_ANIMAL_DETAIL_SUCCESS,
+        payload: {
+          animal
         }
       });
     })

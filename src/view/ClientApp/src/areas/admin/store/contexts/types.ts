@@ -23,7 +23,10 @@ export enum PetHomeActions {
   REGISTER_ANIMAL_FAILED = "@@animal/REGISTER_ANIMAL_FAILED",
   GET_ANIMALS = "@@animal/GET_ANIMALS",
   GET_ANIMALS_SUCCESS = "@@animal/GET_ANIMALS_SUCCESS",
-  GET_ANIMALS_FAILED = "@@animal/GET_ANIMALS_FAILED"
+  GET_ANIMALS_FAILED = "@@animal/GET_ANIMALS_FAILED",
+  GET_ANIMAL_DETAIL = "@@animal/GET_DETAIL",
+  GET_ANIMAL_DETAIL_SUCCESS = "@@animal/GET_ANIMAL_DETAIL_SUCCESS",
+  GET_ANIMAL_DETAIL_FAILED = "@@animal/GET_ANIMAL_DETAIL_FAILURE"
 }
 
 export interface AnimalRegisterAction {
@@ -65,10 +68,34 @@ export interface GetAnimalsFailedAction {
   };
 }
 
+export interface GetAnimalDetailAction {
+  type: typeof PetHomeActions.GET_ANIMAL_DETAIL;
+  payload: {
+    id: string;
+  }
+}
+
+export interface GetAnimalDetailSuccessAction {
+  type: typeof PetHomeActions.GET_ANIMAL_DETAIL_SUCCESS;
+  payload: {
+    animal: IAnimalSummary;
+  }
+}
+
+export interface GetAnimalDetailFailedAction {
+  type: typeof PetHomeActions.GET_ANIMAL_DETAIL_FAILED;
+  payload: {
+    errors: any;
+  }
+}
+
 export type PetHomeActionTypes =
   | AnimalRegisterAction
   | AnimalRegisterSuccessAction
   | AnimalRegisterFailedAction
   | GetAnimalsAction
   | GetAnimalsSuccessAction
-  | GetAnimalsFailedAction;
+  | GetAnimalsFailedAction
+  | GetAnimalDetailAction
+  | GetAnimalDetailSuccessAction
+  | GetAnimalDetailFailedAction;  
