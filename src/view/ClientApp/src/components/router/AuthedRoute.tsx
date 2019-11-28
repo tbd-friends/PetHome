@@ -6,7 +6,6 @@ import {
   withRouter,
   RouteComponentProps
 } from "react-router";
-import { Loader } from "../Loader";
 import { useSelector } from "react-redux";
 import { AppState } from "../../store/types";
 
@@ -24,25 +23,26 @@ const AuthedRoute: React.FC<AuthedRouteProps> = ({
   showLoader = true,
   ...rest
 }) => {
-  const user = useSelector<AppState, any>(state => state.auth.user);
+  const isLoggedIn = useSelector<AppState, boolean>(
+    state => state.auth.isLoggedIn
+  );
   return (
     <Route
       {...rest}
       render={props => {
-        if (!window.localStorage["authedUser"]) {
-          if (redirect) {
-            return <Redirect to="/login" />;
-          } else {
-            return null;
-          }
-        } else if (!user) {
-          if (showLoader) {
-            return <Loader />;
-          } else {
-            return null;
-          }
+        if (isLoggedIn) {
+          return <Component {...rest} />;
         } else {
-          return <Component {...props} />;
+          if (redirect) {
+            const { pathname } = props.location;
+            return (
+              <Redirect
+                to={{ pathname: "/login", state: { returnUrl: pathname } }}
+              />
+            );
+          } else {
+            return null;
+          }
         }
       }}
     />

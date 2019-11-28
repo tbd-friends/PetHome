@@ -8,7 +8,7 @@ import {
 } from "react-router";
 
 interface UnauthedRouteOwnProps {
-  component: React.FC;
+  component: React.FC<any>;
 }
 
 type UnauthedRouteProps = UnauthedRouteOwnProps &
