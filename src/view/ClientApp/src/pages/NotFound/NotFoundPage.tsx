@@ -1,9 +1,10 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { Content } from "../../components/Content";
 
 export const NotFoundPage: React.FC<RouteComponentProps> = props => {
   return (
-    <div>
+    <Content>
       <h1>404</h1>
       <p>
         hmm, nothing to find here,{" "}
@@ -17,6 +18,6 @@ export const NotFoundPage: React.FC<RouteComponentProps> = props => {
           lets got somewhere else!
         </a>
       </p>
-    </div>
+    </Content>
   );
 };

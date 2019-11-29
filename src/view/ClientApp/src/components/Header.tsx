@@ -1,10 +1,71 @@
 import React from "react";
-import { AppBar, Toolbar } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Theme,
+  makeStyles,
+  createStyles,
+  IconButton,
+  Icon,
+  Typography
+} from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { AppState, KnownActions } from "../store/types";
+import { LayoutState, LayoutActionTypes } from "../store/Layout/types";
+import { Dispatch } from "redux";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    appBarDrawerOpen: (props: LayoutState) => ({
+      marginLeft: props.drawerWidth,
+      [theme.breakpoints.up("sm")]: {
+        width: `calc(100% - ${props.drawerWidth}px)`
+      }
+    }),
+    appBarDrawerClosed: {
+      [theme.breakpoints.up("sm")]: {
+        width: "100%"
+      }
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up("sm")]: {
+        display: "none"
+      }
+    },
+    title: {
+      flexGrow: 1
+    }
+  })
+);
 
 export const Header: React.FC = () => {
+  const layout = useSelector<AppState, LayoutState>(state => state.layout);
+  const dispatch = useDispatch<Dispatch<KnownActions>>();
+  const classes = useStyles(layout);
   return (
-    <AppBar>
-      <Toolbar></Toolbar>
+    <AppBar
+      position="fixed"
+      className={
+        layout.drawerOpened
+          ? classes.appBarDrawerClosed
+          : classes.appBarDrawerOpen
+      }
+    >
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="Open Drawer"
+          edge="start"
+          onClick={() => dispatch({ type: LayoutActionTypes.TOGGLE_DRAWER })}
+          className={classes.menuButton}
+        >
+          <Icon>menu</Icon>
+        </IconButton>
+        <Typography variant="h6" noWrap className={classes.title}>
+          PetHome
+        </Typography>
+      </Toolbar>
     </AppBar>
   );
 };
