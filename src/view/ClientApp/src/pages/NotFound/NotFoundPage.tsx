@@ -1,23 +1,36 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { Theme, makeStyles, createStyles } from "@material-ui/core";
+
 import { Content } from "../../components/Content";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      margin: 15
+    }
+  })
+);
+
 export const NotFoundPage: React.FC<RouteComponentProps> = props => {
+  const classes = useStyles();
   return (
     <Content>
-      <h1>404</h1>
-      <p>
-        hmm, nothing to find here,{" "}
-        <a
-          href="/"
-          onClick={e => {
-            e.preventDefault();
-            props.history.goBack();
-          }}
-        >
-          lets got somewhere else!
-        </a>
-      </p>
+      <div className={classes.container}>
+        <h1>404</h1>
+        <p>
+          hmm, nothing to find here,{" "}
+          <a
+            href="/"
+            onClick={e => {
+              e.preventDefault();
+              props.history.goBack();
+            }}
+          >
+            lets got somewhere else!
+          </a>
+        </p>
+      </div>
     </Content>
   );
 };

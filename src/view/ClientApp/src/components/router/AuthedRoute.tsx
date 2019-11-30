@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  RouteProps,
-  Route,
-  Redirect,
-  withRouter,
-  RouteComponentProps
-} from "react-router";
+import { RouteProps, Route, Redirect } from "react-router";
 import { useSelector } from "react-redux";
 import { AppState } from "../../store/types";
 
@@ -15,7 +9,7 @@ interface AuthedRouteOwnProps {
   showLoader?: boolean;
 }
 
-type AuthedRouteProps = AuthedRouteOwnProps & RouteProps & RouteComponentProps;
+type AuthedRouteProps = AuthedRouteOwnProps & RouteProps;
 
 const AuthedRoute: React.FC<AuthedRouteProps> = ({
   component: Component,
@@ -31,7 +25,7 @@ const AuthedRoute: React.FC<AuthedRouteProps> = ({
       {...rest}
       render={props => {
         if (isLoggedIn) {
-          return <Component {...rest} />;
+          return <Component {...props} />;
         } else {
           if (redirect) {
             const { pathname } = props.location;
@@ -49,4 +43,4 @@ const AuthedRoute: React.FC<AuthedRouteProps> = ({
   );
 };
 
-export default withRouter(AuthedRoute);
+export default AuthedRoute;

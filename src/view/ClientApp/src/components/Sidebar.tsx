@@ -67,7 +67,7 @@ export const Sidebar: React.FC = () => {
               button
               className={classes.nested}
               component={Link}
-              to="/animals/list"
+              to="/animal/list"
             >
               <ListItemIcon>
                 <Icon>note_add</Icon>
@@ -78,7 +78,7 @@ export const Sidebar: React.FC = () => {
               button
               className={classes.nested}
               component={Link}
-              to="/animals/register"
+              to="/animal/register"
             >
               <ListItemIcon>
                 <Icon>note_add</Icon>

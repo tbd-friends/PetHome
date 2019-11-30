@@ -7,12 +7,14 @@ import {
   createStyles,
   IconButton,
   Icon,
-  Typography
+  Typography,
+  Button
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { AppState, KnownActions } from "../store/types";
 import { LayoutState, LayoutActionTypes } from "../store/Layout/types";
 import { Dispatch } from "redux";
+import { AuthActionTypes } from "../store/Auth/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,6 +67,12 @@ export const Header: React.FC = () => {
         <Typography variant="h6" noWrap className={classes.title}>
           PetHome
         </Typography>
+        <Button
+          color="inherit"
+          onClick={() => dispatch({ type: AuthActionTypes.LOGOUT })}
+        >
+          Logout
+        </Button>
       </Toolbar>
     </AppBar>
   );

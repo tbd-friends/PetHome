@@ -11,7 +11,8 @@ export interface AuthState {
 export enum AuthActionTypes {
   LOGIN = "@@auth/LOGIN",
   LOGOUT = "@@auth/LOGOUT",
-  LOGIN_SUCCESS = "@auth/LOGIN_SUCCESS"
+  LOGIN_SUCCESS = "@@auth/LOGIN_SUCCESS",
+  LOGIN_FAILED = "@@auth/LOGIN_FAILED"
 }
 
 export interface LoginAction {
@@ -33,4 +34,15 @@ export interface LoginSuccessAction {
   };
 }
 
-export type AuthActions = LoginAction | LogoutAction | LoginSuccessAction;
+export interface LoginFailedAction {
+  type: typeof AuthActionTypes.LOGIN_FAILED;
+  payload: {
+    error: any;
+  };
+}
+
+export type AuthActions =
+  | LoginAction
+  | LogoutAction
+  | LoginSuccessAction
+  | LoginFailedAction;

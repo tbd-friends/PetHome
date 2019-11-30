@@ -9,7 +9,7 @@ import { Sidebar } from "./components/Sidebar";
 import { LoginPage } from "./pages/auth-pages/Login/LoginPages";
 import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 import { HomePage } from "./pages/Home/HomePage";
-import { AnimalsListPage } from "./pages/animals/List/AnimalsListPage";
+import { AnimalListPage } from "./pages/animals/List/AnimalListPage";
 import { AnimalRegisterPage } from "./pages/animals/Register/AnimalRegisterPage";
 import { AnimalDetailsPage } from "./pages/animals/Details/AnimalDetailsPage";
 import { AnimalEditPage } from "./pages/animals/Edit/AnimalEditPage";
@@ -26,11 +26,11 @@ export const AppRouter: React.FC<AppRouterProps> = ({ history }) => {
         <AuthedRoute component={Sidebar} redirect={false} showLoader={false} />
         <Switch>
           <AuthedRoute component={HomePage} exact path="/" />
-          <AuthedRoute component={AnimalsListPage} exact path="/animals/list" />
+          <AuthedRoute component={AnimalListPage} exact path="/animal/list" />
           <AuthedRoute
             component={AnimalRegisterPage}
             exact
-            path="/animals/register"
+            path="/animal/register"
           />
           <AuthedRoute
             component={AnimalDetailsPage}

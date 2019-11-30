@@ -1,28 +1,56 @@
 import React from "react";
-import { RouteComponentProps } from "react-router";
-import { Content } from "../../../components/Content";
-import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
+import { RouteComponentProps } from "react-router";
+import { Theme, makeStyles, createStyles } from "@material-ui/core";
+
+import { Content } from "../../../components/Content";
 import { KnownActions } from "../../../store/types";
-import { RegisterAnimalValues } from "./types";
 import { AnimalRegisterForm } from "./AnimalRegisterForm";
+import { RegisterAnimalInputModel } from "../../../utils/pethome.api";
+import { AnimalsActionTypes } from "../../../store/Animals/types";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      margin: 15
+    }
+  })
+);
 
 export const AnimalRegisterPage: React.FC<RouteComponentProps> = props => {
   const dispatch = useDispatch<Dispatch<KnownActions>>();
-  const initialValues: RegisterAnimalValues = {};
+  const initialValues: RegisterAnimalInputModel = {
+    species: "",
+    breed: "",
+    color: "",
+    gender: "",
+    weight: 0,
+    tagNumber: "",
+    circumstances: "",
+    vetRequired: false,
+    notes: ""
+  };
+  const classes = useStyles();
 
-  const handleSubmit = (values: RegisterAnimalValues) => {
-    console.log(values);
-    //dispatch();
+  const handleSubmit = (values: RegisterAnimalInputModel) => {
+    dispatch({
+      type: AnimalsActionTypes.REGISTER_ANIMAL,
+      payload: {
+        newAnimal: values
+      }
+    });
   };
 
   return (
     <Content>
-      <h1>Animals Register</h1>
-      <AnimalRegisterForm
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-      />
+      <div className={classes.container}>
+        <h1>Animals Register</h1>
+        <AnimalRegisterForm
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+        />
+      </div>
     </Content>
   );
 };

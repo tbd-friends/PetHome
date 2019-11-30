@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace viewmodels
 {
     public class AnimalSummary
     {
+
+        [Required]
         public Guid Id { get; set; }
         public string Species { get; set; }
         public DateTime Entered { get; set; }
