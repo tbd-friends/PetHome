@@ -37,6 +37,48 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface SidebarItemProps {
+  name: string;
+  label: string;
+  depth?: number;
+  depthStep?: number;
+  component?: any;
+  to?: string;
+  icon?: string;
+  items?: SidebarItemProps[];
+}
+
+const sidebarLinks: SidebarItemProps[] = [
+  {
+    name: "home",
+    label: "Home",
+    component: Link,
+    to: "/",
+    icon: "home"
+  },
+  {
+    name: "animals",
+    label: "Animals",
+    icon: "pets",
+    items: [
+      {
+        name: "animal-list",
+        label: "List",
+        component: Link,
+        to: "/animal/list",
+        icon: "note_add"
+      },
+      {
+        name: "animal-register",
+        label: "Register",
+        component: Link,
+        to: "/animal/register",
+        icon: "note_add"
+      }
+    ]
+  }
+];
+
 export const Sidebar: React.FC = () => {
   const layout = useSelector<AppState, LayoutState>(state => state.layout);
   const dispatch = useDispatch<Dispatch<KnownActions>>();
@@ -45,6 +87,17 @@ export const Sidebar: React.FC = () => {
   const [animalsOpened, setAnimalsOpened] = React.useState(true);
 
   const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <List disablePadding dense>
+        {sidebarLinks.map((sidebarItem, index) => (
+          <SidebarItem key={`${sidebarItem.name}${index}`} {...sidebarItem} />
+        ))}
+      </List>
+    </div>
+  );
+
+  const drawer2 = (
     <div>
       <div className={classes.toolbar} />
       <List>
@@ -126,5 +179,42 @@ export const Sidebar: React.FC = () => {
         </Drawer>
       </Hidden>
     </nav>
+  );
+};
+
+const SidebarItem: React.FC<SidebarItemProps> = ({
+  label,
+  items,
+  depth = 0,
+  depthStep = 10,
+  icon,
+  ...rest
+}) => {
+  return (
+    <>
+      <ListItem button dense {...rest}>
+        {icon && (
+          <ListItemIcon>
+            <Icon>{icon}</Icon>
+          </ListItemIcon>
+        )}
+        <ListItemText
+          style={{ paddingLeft: depth * depthStep }}
+          primary={label}
+        />
+      </ListItem>
+      {Array.isArray(items) ? (
+        <List disablePadding dense>
+          {items.map(subitem => (
+            <SidebarItem
+              key={subitem.name}
+              depth={depth + 1}
+              depthStep={depthStep}
+              {...subitem}
+            />
+          ))}
+        </List>
+      ) : null}
+    </>
   );
 };
