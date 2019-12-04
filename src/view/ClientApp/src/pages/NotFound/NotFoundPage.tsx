@@ -1,10 +1,10 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { Theme, makeStyles, createStyles } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core";
 
 import { Content } from "../../components/Content";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     container: {
       margin: 15

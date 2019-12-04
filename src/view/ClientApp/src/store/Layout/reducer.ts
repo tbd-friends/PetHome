@@ -1,5 +1,5 @@
-import { LayoutState, LayoutActions, LayoutActionTypes } from "./types";
 import { Reducer } from "redux";
+import { LayoutState, LayoutActions, LayoutActionTypes } from "./types";
 
 const initialState: LayoutState = { drawerWidth: 240, drawerOpened: false };
 

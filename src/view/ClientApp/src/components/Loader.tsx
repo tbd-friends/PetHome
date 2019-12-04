@@ -13,5 +13,5 @@ export const Loader: React.FC<LoaderProps> = ({ defaultLoader, radius }) =>
       <img src={LoaderIcon} alt="loading..." />
     </div>
   ) : (
-    <div className="laoder-roll" style={{ width: radius, height: radius }} />
+    <div className="loader-roll" style={{ width: radius, height: radius }} />
   );
