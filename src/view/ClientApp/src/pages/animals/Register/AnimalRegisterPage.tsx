@@ -2,21 +2,13 @@ import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Theme, makeStyles, createStyles } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 
 import { Content } from "../../../components/Content";
 import { KnownActions } from "../../../store/types";
 import { AnimalRegisterForm } from "./AnimalRegisterForm";
 import { RegisterAnimalInputModel } from "../../../utils/pethome.api";
 import { AnimalsActionTypes } from "../../../store/Animals/types";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      margin: 15
-    }
-  })
-);
 
 export const AnimalRegisterPage: React.FC<RouteComponentProps> = props => {
   const dispatch = useDispatch<Dispatch<KnownActions>>();
@@ -31,7 +23,6 @@ export const AnimalRegisterPage: React.FC<RouteComponentProps> = props => {
     vetRequired: false,
     notes: ""
   };
-  const classes = useStyles();
 
   const handleSubmit = (values: RegisterAnimalInputModel) => {
     dispatch({
@@ -44,13 +35,13 @@ export const AnimalRegisterPage: React.FC<RouteComponentProps> = props => {
 
   return (
     <Content>
-      <div className={classes.container}>
+      <Container maxWidth="xl">
         <h1>Animals Register</h1>
         <AnimalRegisterForm
           initialValues={initialValues}
           onSubmit={handleSubmit}
         />
-      </div>
+      </Container>
     </Content>
   );
 };

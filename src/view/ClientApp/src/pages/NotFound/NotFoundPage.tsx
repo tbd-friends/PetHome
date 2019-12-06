@@ -1,22 +1,13 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { makeStyles, createStyles } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 
 import { Content } from "../../components/Content";
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    container: {
-      margin: 15
-    }
-  })
-);
-
 export const NotFoundPage: React.FC<RouteComponentProps> = props => {
-  const classes = useStyles();
   return (
     <Content>
-      <div className={classes.container}>
+      <Container maxWidth="xl">
         <h1>404</h1>
         <p>
           hmm, nothing to find here,{" "}
@@ -30,7 +21,7 @@ export const NotFoundPage: React.FC<RouteComponentProps> = props => {
             lets got somewhere else!
           </a>
         </p>
-      </div>
+      </Container>
     </Content>
   );
 };

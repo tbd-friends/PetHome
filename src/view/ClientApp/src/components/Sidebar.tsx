@@ -7,37 +7,37 @@ import {
   createStyles,
   ListItem,
   List,
-  Button,
   ListItemIcon,
   Icon,
   ListItemText,
   Collapse
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import { Link, useLocation } from "react-router-dom";
+
 import { AppState, KnownActions } from "../store/types";
 import { LayoutState, LayoutActionTypes } from "../store/Layout/types";
-import { Dispatch } from "redux";
-import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles<Theme, LayoutState>(theme =>
   createStyles({
-    drawer: (props: LayoutState) => ({
+    drawer: props => ({
       [theme.breakpoints.up("sm")]: {
         width: props.drawerWidth,
         flexShrink: 0
       }
     }),
-    drawerPaper: (props: LayoutState) => ({
+    drawerPaper: props => ({
       width: props.drawerWidth
     }),
-    nested: (props: LayoutState) => ({
+    nested: {
       paddingLeft: theme.spacing(4)
-    }),
+    },
     toolbar: theme.mixins.toolbar
   })
 );
 
-interface SidebarItemProps {
+export interface SidebarItemProps {
   name: string;
   label: string;
   depth?: number;
@@ -48,98 +48,26 @@ interface SidebarItemProps {
   items?: SidebarItemProps[];
 }
 
-const sidebarLinks: SidebarItemProps[] = [
-  {
-    name: "home",
-    label: "Home",
-    component: Link,
-    to: "/",
-    icon: "home"
-  },
-  {
-    name: "animals",
-    label: "Animals",
-    icon: "pets",
-    items: [
-      {
-        name: "animal-list",
-        label: "List",
-        component: Link,
-        to: "/animal/list",
-        icon: "note_add"
-      },
-      {
-        name: "animal-register",
-        label: "Register",
-        component: Link,
-        to: "/animal/register",
-        icon: "note_add"
-      }
-    ]
-  }
-];
+export interface SidebarProps {
+  items: SidebarItemProps[];
+}
 
-export const Sidebar: React.FC = () => {
+export const Sidebar: React.FC<SidebarProps> = ({ items }) => {
   const layout = useSelector<AppState, LayoutState>(state => state.layout);
   const dispatch = useDispatch<Dispatch<KnownActions>>();
   const classes = useStyles(layout);
-
-  const [animalsOpened, setAnimalsOpened] = React.useState(true);
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <List disablePadding dense>
-        {sidebarLinks.map((sidebarItem, index) => (
-          <SidebarItem key={`${sidebarItem.name}${index}`} {...sidebarItem} />
+        {items.map((sidebarItem, index) => (
+          <SidebarItem
+            key={`${sidebarItem.name}${index}`}
+            {...sidebarItem}
+            depth={1}
+          />
         ))}
-      </List>
-    </div>
-  );
-
-  const drawer2 = (
-    <div>
-      <div className={classes.toolbar} />
-      <List>
-        <ListItem button component={Link} to="/">
-          <ListItemIcon>
-            <Icon>home</Icon>
-          </ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem button onClick={() => setAnimalsOpened(!animalsOpened)}>
-          <ListItemIcon>
-            <Icon>pets</Icon>
-          </ListItemIcon>
-          <ListItemText primary="Animals" />
-          {animalsOpened ? <Icon>expand_less</Icon> : <Icon>expand_more</Icon>}
-        </ListItem>
-        <Collapse in={animalsOpened} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem
-              button
-              className={classes.nested}
-              component={Link}
-              to="/animal/list"
-            >
-              <ListItemIcon>
-                <Icon>note_add</Icon>
-              </ListItemIcon>
-              <ListItemText primary="List" />
-            </ListItem>
-            <ListItem
-              button
-              className={classes.nested}
-              component={Link}
-              to="/animal/register"
-            >
-              <ListItemIcon>
-                <Icon>note_add</Icon>
-              </ListItemIcon>
-              <ListItemText primary="Register" />
-            </ListItem>
-          </List>
-        </Collapse>
       </List>
     </div>
   );
@@ -188,32 +116,74 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   depth = 0,
   depthStep = 10,
   icon,
+  to,
+  component,
   ...rest
 }) => {
+  const location = useLocation();
+  const [opened, setOpened] = React.useState(false);
   return (
     <>
-      <ListItem button dense {...rest}>
-        {icon && (
-          <ListItemIcon>
-            <Icon>{icon}</Icon>
-          </ListItemIcon>
-        )}
-        <ListItemText
-          style={{ paddingLeft: depth * depthStep }}
-          primary={label}
-        />
-      </ListItem>
       {Array.isArray(items) ? (
-        <List disablePadding dense>
-          {items.map(subitem => (
-            <SidebarItem
-              key={subitem.name}
-              depth={depth + 1}
-              depthStep={depthStep}
-              {...subitem}
-            />
-          ))}
-        </List>
+        <ListItem
+          button
+          dense
+          onClick={() => setOpened(!opened)}
+          style={{ paddingLeft: depth * depthStep }}
+        >
+          {icon && (
+            <ListItemIcon>
+              <Icon>{icon}</Icon>
+            </ListItemIcon>
+          )}
+          <ListItemText primary={label} />
+          {opened ? <Icon>expand_less</Icon> : <Icon>expand_more</Icon>}
+        </ListItem>
+      ) : location.pathname === to ? (
+        <ListItem
+          dense
+          {...rest}
+          style={{ paddingLeft: depth * depthStep }}
+          selected
+        >
+          {icon && (
+            <ListItemIcon>
+              <Icon>{icon}</Icon>
+            </ListItemIcon>
+          )}
+          <ListItemText primary={label} />
+        </ListItem>
+      ) : (
+        <ListItem
+          button
+          dense
+          component={component}
+          to={to}
+          {...rest}
+          style={{ paddingLeft: depth * depthStep }}
+        >
+          {icon && (
+            <ListItemIcon>
+              <Icon>{icon}</Icon>
+            </ListItemIcon>
+          )}
+          <ListItemText primary={label} />
+        </ListItem>
+      )}
+
+      {Array.isArray(items) ? (
+        <Collapse in={opened} timeout="auto" unmountOnExit>
+          <List disablePadding dense>
+            {items.map(subItem => (
+              <SidebarItem
+                key={subItem.name}
+                depth={depth + 1}
+                depthStep={depthStep}
+                {...subItem}
+              />
+            ))}
+          </List>
+        </Collapse>
       ) : null}
     </>
   );

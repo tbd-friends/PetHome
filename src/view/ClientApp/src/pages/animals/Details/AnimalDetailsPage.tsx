@@ -1,26 +1,18 @@
 import React, { useEffect } from "react";
+import { Dispatch } from "redux";
 import { RouteComponentProps } from "react-router";
-import { Theme, makeStyles, createStyles } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 
 import { Content } from "../../../components/Content";
 import { useSelector, useDispatch } from "react-redux";
 import { AppState, KnownActions } from "../../../store/types";
 import { getAnimalSelector } from "../../../store/Animals/selectors";
-import { Dispatch } from "redux";
 import { AnimalsActionTypes, Animal } from "../../../store/Animals/types";
 import { Loader } from "../../../components/Loader";
 
 interface ParamsProps {
   animalId: string;
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      margin: 15
-    }
-  })
-);
 
 export const AnimalDetailsPage: React.FC<RouteComponentProps<ParamsProps>> = ({
   match
@@ -30,7 +22,6 @@ export const AnimalDetailsPage: React.FC<RouteComponentProps<ParamsProps>> = ({
     return getAnimalSelector(state, animalId);
   });
   const dispatch = useDispatch<Dispatch<KnownActions>>();
-  const classes = useStyles();
 
   useEffect(() => {
     dispatch({ type: AnimalsActionTypes.FETCH_ANIMAL, payload: { animalId } });
@@ -38,7 +29,7 @@ export const AnimalDetailsPage: React.FC<RouteComponentProps<ParamsProps>> = ({
 
   return (
     <Content>
-      <div className={classes.container}>
+      <Container maxWidth="xl">
         <h1>Animal Details</h1>
         {animal ? (
           <div>
@@ -78,7 +69,7 @@ export const AnimalDetailsPage: React.FC<RouteComponentProps<ParamsProps>> = ({
         ) : (
           <Loader />
         )}
-      </div>
+      </Container>
     </Content>
   );
 };

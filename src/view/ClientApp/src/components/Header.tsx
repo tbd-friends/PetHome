@@ -16,9 +16,9 @@ import { LayoutState, LayoutActionTypes } from "../store/Layout/types";
 import { Dispatch } from "redux";
 import { AuthActionTypes } from "../store/Auth/types";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles<Theme, LayoutState>(theme =>
   createStyles({
-    appBarDrawerOpen: (props: LayoutState) => ({
+    appBarDrawerOpen: props => ({
       marginLeft: props.drawerWidth,
       [theme.breakpoints.up("sm")]: {
         width: `calc(100% - ${props.drawerWidth}px)`
@@ -45,6 +45,7 @@ export const Header: React.FC = () => {
   const layout = useSelector<AppState, LayoutState>(state => state.layout);
   const dispatch = useDispatch<Dispatch<KnownActions>>();
   const classes = useStyles(layout);
+
   return (
     <AppBar
       position="fixed"

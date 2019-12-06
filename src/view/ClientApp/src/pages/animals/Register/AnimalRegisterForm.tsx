@@ -21,7 +21,7 @@ interface AnimalRegisterFormProps {
   onSubmit: (values: RegisterAnimalInputModel) => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     form: {
       display: "flex",
