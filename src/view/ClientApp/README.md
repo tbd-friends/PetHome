@@ -4,9 +4,7 @@
 
 ```
 $ git clone git@github.com:tbd-friends/PetHome.git
-$ cd .\PetHome\
-$ git checkout -b feature/client_base_ts --track origin/feature/client_base_ts
-$ cd .\src\view\ClientApp\
+$ cd .\PetHome\src\view\ClientApp\
 ```
 
 > Yarn:
