@@ -1,26 +1,26 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { createMuiTheme, CssBaseline } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-import { SignInPage } from './pages/signin/SignInPage';
-import { AdminArea } from './areas/admin/AdminArea';
-import { HomePage } from './pages/home/HomePage';
-import { NotFoundPage } from './pages/notfound/NotFoundPage';
-import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import React from "react";
+import { Provider } from "react-redux";
+import { createBrowserHistory } from "history";
+import { createMuiTheme, CssBaseline } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/styles";
+
+import configureStore from "./store";
+import { AppRouter } from "./AppRouter";
+
+const { store } = configureStore();
+const history = createBrowserHistory();
 
 const baseTheme = createMuiTheme({});
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   return (
-    <ThemeProvider theme={baseTheme}>
-      <CssBaseline />
-      <Switch>
-        <Route path="/signin" exact component={SignInPage} />
-        <Route path="/" exact component={HomePage} />
-        {/*<Route path="/admin" component={AdminArea} />*/}
-        <PrivateRoute path="/admin" component={AdminArea} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={baseTheme}>
+        <CssBaseline />
+        <AppRouter history={history} />
+      </ThemeProvider>
+    </Provider>
   );
 };
+
+export default App;
