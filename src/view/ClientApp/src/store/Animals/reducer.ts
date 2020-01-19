@@ -41,6 +41,18 @@ export const reducer: Reducer<AnimalsState, AnimalsActions> = (
           : [...state.animalIds, action.payload.animal.id]
       };
     }
+    case AnimalsActionTypes.UPDATE_ANIMAL_SUCCESS: {
+      return {
+        ...state,
+        animalsById: {
+          ...state.animalsById,
+          [action.payload.id]: {
+            id: action.payload.id,
+            ...action.payload.animal
+          }
+        }
+      };
+    }
     default:
       return state;
   }

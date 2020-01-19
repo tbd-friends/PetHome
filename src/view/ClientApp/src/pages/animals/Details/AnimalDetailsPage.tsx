@@ -9,6 +9,7 @@ import { AppState, KnownActions } from "../../../store/types";
 import { getAnimalSelector } from "../../../store/Animals/selectors";
 import { AnimalsActionTypes, Animal } from "../../../store/Animals/types";
 import { Loader } from "../../../components/Loader";
+import { Link } from "react-router-dom";
 
 interface ParamsProps {
   animalId: string;
@@ -25,7 +26,7 @@ export const AnimalDetailsPage: React.FC<RouteComponentProps<ParamsProps>> = ({
 
   useEffect(() => {
     dispatch({ type: AnimalsActionTypes.FETCH_ANIMAL, payload: { animalId } });
-  }, []);
+  }, [dispatch, animalId]);
 
   return (
     <Content>
@@ -65,6 +66,7 @@ export const AnimalDetailsPage: React.FC<RouteComponentProps<ParamsProps>> = ({
               <label>Is Vet Required: </label>
               {JSON.stringify(animal.vetRequired)}
             </div>
+            <Link to={`/animal/edit/${animalId}`}>Edit</Link>
           </div>
         ) : (
           <Loader />
