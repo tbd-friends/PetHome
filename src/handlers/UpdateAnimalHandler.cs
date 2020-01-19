@@ -25,6 +25,7 @@ namespace PetHome.Handlers
             }
 
             var animal = _uow.Animals.GetById(request.Id);
+
             animal.Species = request.Species;
             animal.Color = request.Color;
             animal.Breed = request.Breed;
