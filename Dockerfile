@@ -1,8 +1,9 @@
 
 FROM node:6.7.0
 
-WORKDIR /app
+WORKDIR /app/src/view/ClientApp
 RUN npm install -g yarn
+RUN npm install
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /app
