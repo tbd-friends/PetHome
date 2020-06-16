@@ -39,5 +39,24 @@ namespace PetHome.View.Controllers
 
             return id;
         }
+
+        [HttpPut("update/{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task UpdateAnimal([FromRoute] Guid id, [FromBody] UpdateAnimalInputModel model)
+        {
+            await _mediator.Send(new UpdateAnimal
+            {
+                Id = id,
+                Species = model.Species,
+                Color = model.Color,
+                Breed = model.Breed,
+                Gender = model.Gender,
+                Weight = model.Weight,
+                TagNumber = model.TagNumber,
+                Circumstances = model.Circumstances,
+                VetRequired = model.VetRequired,
+                Notes = model.Notes
+            });
+        }
     }
 }

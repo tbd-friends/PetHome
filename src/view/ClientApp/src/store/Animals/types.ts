@@ -1,7 +1,8 @@
 import {
   AnimalSummary,
   AnimalDetails,
-  RegisterAnimalInputModel
+  RegisterAnimalInputModel,
+  UpdateAnimalInputModel
 } from "../../utils/pethome.api";
 
 export type Animal = AnimalSummary | AnimalDetails;
@@ -24,7 +25,10 @@ export enum AnimalsActionTypes {
   FETCH_ANIMAL_FAILED = "@@animals/FETCH_ANIMAL_FAIELD",
   REGISTER_ANIMAL = "@@animals/REGISTER_ANIMAL",
   REGISTER_ANIMAL_SUCCESS = "@@animals/REGISTER_ANIMAL_SUCCESS",
-  REGISTER_ANIMAL_FAILED = "@@animals/REGISTER_ANIMAL_FAILED"
+  REGISTER_ANIMAL_FAILED = "@@animals/REGISTER_ANIMAL_FAILED",
+  UPDATE_ANIMAL = "@@animals/UDPATE_ANIMAL",
+  UPDATE_ANIMAL_SUCCESS = "@@animals/UDPATE_ANIMAL_SUCCESS",
+  UDPATE_ANIMAL_FAILED = "@@animals/UDPATE_ANIMAL_FAILED"
 }
 
 export interface FetchAnimalsAction {
@@ -90,6 +94,29 @@ export interface RegisterAnimalFailedAction {
   };
 }
 
+export interface UpdateAnimalAction {
+  type: typeof AnimalsActionTypes.UPDATE_ANIMAL;
+  payload: {
+    id: string;
+    animal: UpdateAnimalInputModel;
+  };
+}
+
+export interface UpdateAnimalSuccessAction {
+  type: typeof AnimalsActionTypes.UPDATE_ANIMAL_SUCCESS;
+  payload: {
+    id: string;
+    animal: UpdateAnimalInputModel;
+  };
+}
+
+export interface UpdateAnimalFailedAction {
+  type: typeof AnimalsActionTypes.UDPATE_ANIMAL_FAILED;
+  payload: {
+    error: any;
+  };
+}
+
 export type AnimalsActions =
   | FetchAnimalsAction
   | FetchAnimalsSuccessAction
@@ -99,4 +126,7 @@ export type AnimalsActions =
   | FetchAnimalFailedAction
   | RegisterAnimalAction
   | RegisterAnimalSuccessAction
-  | RegisterAnimalFailedAction;
+  | RegisterAnimalFailedAction
+  | UpdateAnimalAction
+  | UpdateAnimalSuccessAction
+  | UpdateAnimalFailedAction;

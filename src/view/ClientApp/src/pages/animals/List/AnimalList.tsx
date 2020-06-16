@@ -10,7 +10,7 @@ const renderAnimals = (animals: Animal[]) =>
   animals.map(animal => <AnimalListItem key={animal.id} animal={animal} />);
 
 export const AnimalList: React.FC<AnimalListProps> = ({ animals }) => {
-  return (
+  return animals && animals.length > 0 ? (
     <table>
       <thead>
         <tr>
@@ -27,5 +27,7 @@ export const AnimalList: React.FC<AnimalListProps> = ({ animals }) => {
       </thead>
       <tbody>{renderAnimals(animals)}</tbody>
     </table>
+  ) : (
+    <span>No Animals in system</span>
   );
 };

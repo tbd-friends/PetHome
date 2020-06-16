@@ -18,7 +18,8 @@ export const AnimalListItem: React.FC<AnimalListItemProps> = ({ animal }) => {
       <td>{animal.circumstances}</td>
       <td>{JSON.stringify(animal.vetRequired)}</td>
       <td>
-        <Link to={`/animal/details/${animal.id}`}>Detail</Link>
+        <Link to={`/animal/details/${animal.id}`}>Detail</Link>{" "}
+        <Link to={`/animal/edit/${animal.id}`}>Edit</Link>
       </td>
     </tr>
   );
