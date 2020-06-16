@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+        SA_PASSWORD: "Your_password123"
+        ACCEPT_EULA: "Y"
+    ports:
+      - '1433:1433'
+  dotnetapp:
+    image: aspnetapp
+    build: .
+    ports:
+      - '8080:80'
+    depends_on:
+      - db
+    volumes:
+      - /app/src/view/:src/view/
+
+
+volumes:
+  mysql_data:
+    driver: local
